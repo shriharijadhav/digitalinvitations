@@ -1,0 +1,14 @@
+ 
+
+.myClass{
+  --rdp-accent-color: red !important;
+  --rdp-background-color: gray;
+
+  --rdp-outline	:3px solid #ffffff !important;
+  --rdp-outline-selected	:3px solid #ffffff !important;
+  --rdp-cell-size	:35px !important;
+  --rdp-accent-color	: teal !important;
+  --rdp-background-color	: #818285 !important
+}
+
+/* 1A202C */
