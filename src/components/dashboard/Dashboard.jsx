@@ -3,7 +3,7 @@ import React from 'react'
 import AllCards from '../allcards/AllCards'
 import { IoMdAdd } from "react-icons/io";
 import { Link } from 'react-router-dom';
-
+ 
 const Dashboard = () => {
   return (
     <Flex w={'100%'} justifyContent={'center'} alignItems={'center'} direction={'column'}>
@@ -15,6 +15,8 @@ const Dashboard = () => {
     <Flex w={['90%','90%','90%','90%']} justifyContent={'center'} alignItems={'center'}>
         <AllCards/>
     </Flex>
+
+    
       
     </Flex>
   )

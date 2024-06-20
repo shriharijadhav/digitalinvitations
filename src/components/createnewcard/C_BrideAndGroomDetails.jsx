@@ -12,7 +12,13 @@ import {
     AccordionIcon,
   } from '@chakra-ui/react'
    
+
+
   const C_BrideAndGroomDetails = () => {
+
+ 
+
+
     const dispatch = useDispatch()
     const [value, setValue] = React.useState('1')
     const currentPage = useSelector((store) => store.currentPage)
@@ -63,7 +69,7 @@ import {
     }
 
     const linkPage_handleNext = () => {
-        if(value){
+        if('value'){
         // proceed to next page - update currentPage value
         //    save data to database
         // upon successful save . re-fetch updated data from   database
@@ -71,9 +77,7 @@ import {
         dispatch(proceedToNextPage())
 
         }
-        else if(!value){
-            customToast('Please select a valid template')
-        }
+         
     }
 
     const linkPage_handlePrevious = () => {
@@ -124,8 +128,7 @@ import {
             dispatch(saveMediaDetails('groomDetails',2,'youtubeLink',''))
         }
 
-
-
+ 
     },[instagramChecked,facebookChecked,youtubeChecked,g_instagramChecked,g_facebookChecked,g_youtubeChecked])
 
   return (
@@ -137,6 +140,7 @@ import {
             </ListItem>
         </UnorderedList>
     </Flex>
+
 
     <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
         <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>

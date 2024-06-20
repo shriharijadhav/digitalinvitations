@@ -356,7 +356,7 @@ const initialState = {
             }
         }
     ],
-    currentPage:1,
+    currentPage:4,
     totalPages:10,
     tempNewCardData: {
         cardId:1,// created by appWrite

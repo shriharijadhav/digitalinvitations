@@ -7,6 +7,7 @@ import C_Link from './C_Link'
 import C_SelectTemplate from './C_SelectTemplate'
 import { resetCurrentPageToOne, resetTempNewCardData } from '../../store/actions'
 import C_BrideAndGroomDetails from './C_BrideAndGroomDetails'
+import C_CoverImages from './C_CoverImages'
 
 const CreateNewCard = () => {
 
@@ -21,6 +22,9 @@ const CreateNewCard = () => {
         }
         else if(currentPage === 3){
             return <C_BrideAndGroomDetails/>
+        }
+        else if(currentPage === 4){
+            return <C_CoverImages/>
         }
     }
      
