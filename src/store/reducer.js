@@ -1,4 +1,4 @@
-import { C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_MEDIA_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR } from "./actionTypes";
+import { C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_MEDIA_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR } from "./actionTypes";
 import { resetData_TempNewCardData } from "./reset_tempNewCardData";
 
 const initialState = {
@@ -374,9 +374,19 @@ const initialState = {
                 locationAddress:'',
                 locationCity:''
             },
-            subEvents:[
-                
-            ]
+            subEvents:{
+                engagementDetails:{
+                    engagementName:'Engagement',
+                    raw_engagementDate:'',
+                    engagementDate:'',
+                    engagementTime:'',
+                    location:{
+                        locationName:'',
+                        locationAddress:'',
+                        locationCity:''
+                    }
+                }
+            }
         },
         groomDetails:{
             firstName:'',
@@ -402,6 +412,7 @@ const initialState = {
             firstName:'',
             lastName:'',
             imageUrl:'',
+            brideImageCropDone:false,
             parentDetails:[],
             socialMediaLinks:[
                 {
@@ -480,7 +491,7 @@ export const reducer = (state=initialState,action)=>{
         break;
         case C_SAVE_EVENT_DATE:
             return {
-                ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,eventDate:action.payload,raw_eventDate:action.rawDateString}}
+                ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,eventDate:action.payload,raw_eventDate:JSON.stringify(action.rawDateString)}}
             }
         break;
         case PROCEED_TO_NEXT_PAGE:
@@ -569,6 +580,23 @@ export const reducer = (state=initialState,action)=>{
                 return {
                     ...state,tempNewCardData:{...state.tempNewCardData,groomDetails:{...state.tempNewCardData.groomDetails,socialMediaLinks:dummySocialArrayGroom}}
                 }
+            }
+
+        break;
+        case C_IMAGE_UPLOAD_DONE_FOR_BRIDE:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,brideDetails:{...state.tempNewCardData.brideDetails,brideImageCropDone:action.payload}}
+            }
+        break;
+        case C_SAVE_ENGAGEMENT_DATE:
+            return {
+                ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,subEvents:{...state.tempNewCardData.eventDetails.subEvents,engagementDetails:{...state.tempNewCardData.eventDetails.subEvents.engagementDetails,engagementDate:action.payload,raw_engagementDate:JSON.stringify(action.rawDateString)}}}}
+            }
+
+        break;
+        case C_SAVE_ENGAGEMENT_TIME:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,subEvents:{...state.tempNewCardData.eventDetails.subEvents,engagementDetails:{...state.tempNewCardData.eventDetails.subEvents.engagementDetails,engagementTime:action.payload}}}}
             }
 
         break;

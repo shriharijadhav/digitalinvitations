@@ -19,7 +19,7 @@ import {
 const C_CoverImages = () => {
     const toast = useToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [selectedCoverId,setSelectedCoverId] = useState([1])
+    const [selectedCoverId,setSelectedCoverId] = useState([1,3,5])
 
     const availableCovers = [
         {
@@ -100,10 +100,14 @@ const C_CoverImages = () => {
             </ListItem>
         </UnorderedList>
     </Flex>
+
+
+    
+
     <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
         <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>
-            <Text w={['100%','100%','40%','40%']} fontSize={'lg'}>Cover Image - 1</Text>
-            <Text>Id of selected Cover Image : {selectedCoverId}</Text>
+            <Text fontSize={'lg'}>Browse and select a cover image from our curated defaults.</Text>
+            <Text>Id of selected Cover Images : {selectedCoverId.join(',')}</Text>
             <Flex w={'100%'}>
             <Button onClick={onOpen}>View Album</Button>
 
@@ -113,24 +117,31 @@ const C_CoverImages = () => {
                <Flex p={'10px 0px'}   w={'100%'} justifyContent={'center'} bg={'indigo'}>
                 <Flex w={'80%'} justifyContent={'space-between'} alignItems={'center'}>
                 <Text fontSize={'xl'}>Select cover image</Text>
-                <Button onClick={onClose}>X</Button>
+                <Button onClick={onClose}>Close</Button>
                 </Flex>
                </Flex>
-                <ModalBody w={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} pb={6}>
-                    <Flex w={'80%'} bg={'rebeccapurple'} justifyContent={'center'} alignItems={'center'} p={'20px 0px'}>
+                <ModalBody w={'100%'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'} pb={6}>
+                <Text p={'10px 0px'} fontSize={'lg'} textDecoration={'underline'} textUnderlineOffset={'8px'} _hover={{cursor:'pointer',textDecoration:'underline wavy'}} >Click on the image to clear your selection.</Text>
+
+                    <Flex w={'80%'}   justifyContent={'center'} alignItems={'center'} p={'20px 0px'}>
                     <Grid templateColumns={'repeat(3, 1fr)'} gap={'20px'}>
                         {
                             availableCovers.map(item=>(
                                 <GridItem onClick={()=>{
                                     if(selectedCoverId.includes(item.id)){
-                                        console.log(item.id);
+                                        if(selectedCoverId.length>3){
+                                            console.log(item.id);
                                         const tempArray = selectedCoverId.filter(c=>c!== item.id);
                                         setSelectedCoverId(tempArray)
+                                        }else{
+                                            customToast('At least 3 images should be selected.')
+
+                                        }
                                     }else{
-                                        if(selectedCoverId.length <3 ){
+                                        if(selectedCoverId.length <5 ){
                                             setSelectedCoverId(prev=>([...prev,item.id]))
                                         }else{
-                                            customToast('You can select only 3 images at once')
+                                            customToast('You can select maximum 5 images at once')
                                         }
                                     }
                                 }} key={item.id} cursor={'pointer'} rounded={'md'} w={'300px'} bg={'beige'} h={'200px'} position={'relative'}>A

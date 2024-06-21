@@ -11,6 +11,7 @@ import {
     AccordionPanel,
     AccordionIcon,
   } from '@chakra-ui/react'
+import ImageCrop from './ImageCrop'
    
 
 
@@ -105,6 +106,23 @@ import {
         }
     }
 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0]; // Get the selected file
+        if (file) {
+            // Check if file size is less than or equal to 2MB (2 * 1024 * 1024 bytes)
+            if (file.size <= 2 * 1024 * 1024) {
+                // File size is within limit, you can proceed with handling the file
+                console.log('File selected:', file);
+            } else {
+                // File size exceeds 2MB, show alert to the user
+                alert('File size exceeds 2MB. Please select a smaller file.');
+                // Reset the file input (optional)
+                event.target.value = null;
+                
+            }
+        }
+    };
+
     useEffect(() => {
         if(!instagramChecked){
             dispatch(saveMediaDetails('brideDetails',0,'instagramLink',''))
@@ -132,7 +150,7 @@ import {
     },[instagramChecked,facebookChecked,youtubeChecked,g_instagramChecked,g_facebookChecked,g_youtubeChecked])
 
   return (
-    <Flex w={['100%','90%','90%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
+    <Flex as={'form'} w={['100%','90%','90%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
     <Flex w={'100%'}>
         <UnorderedList>
             <ListItem>
@@ -162,6 +180,36 @@ import {
     </Flex>
 
 
+
+    <Accordion w={'100%'} border={'1px solid gray'} rounded={'lg'} overflow={'hidden'} allowToggle>
+                    <AccordionItem   >
+                        <h2>
+                        <AccordionButton >
+                            <Box as='span' flex='1' textAlign='left'>
+                            <Text >Instructions to select Image</Text>
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                        </h2>
+                        <AccordionPanel transition={'all'} transitionDelay={'1s'}  pb={4}>
+                        <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>
+                        <UnorderedList>
+                            <ListItem>
+                            <Text>Select an image with a minimum resolution of 500 x 500 pixels.</Text>
+                            </ListItem>
+                            <ListItem>
+                            <Text>Upload image upto 2mb size only.</Text>
+                            </ListItem>
+                            <ListItem>
+                            <Text>Ensure the person is positioned at the center of the image.</Text>
+                            </ListItem>
+                        </UnorderedList>
+                       
+                    </Flex>    
+                        </AccordionPanel>
+            </AccordionItem>
+        </Accordion>
+
     <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
         <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>
         <Text w={['100%','100%','40%','40%']} fontSize={'lg'}>Bride's Details</Text>
@@ -182,7 +230,7 @@ import {
             </FormControl>
             <FormControl >
                 <FormLabel p={'5px 0px'} >Upload Bride's Image</FormLabel>
-                <Input ml={'0px'} variant={'ghost'} type='file'    />
+                <Input variant={'ghost'} type='file' name='brideImage' onChange={handleFileChange} />
             </FormControl>
             <FormControl p={'5px 0px'}>
                 <FormLabel p={'10px 0px'}>Bride's Social Media Links</FormLabel>
@@ -251,8 +299,8 @@ import {
         </FormControl>
         <FormControl >
             <FormLabel p={'5px 0px'} >Upload Groom's Image</FormLabel>
-            <Input ml={'0px'} variant={'ghost'} type='file'    />
-        </FormControl>
+            <Input variant={'ghost'} type='file' name='groomImage' onChange={handleFileChange} />
+            </FormControl>
         <FormControl p={'5px 0px'}>
             <FormLabel p={'10px 0px'}>Groom's Social Media Links</FormLabel>
             <Accordion w={'100%'} border={'1px solid gray'} allowToggle>
