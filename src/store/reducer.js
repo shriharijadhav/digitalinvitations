@@ -1,4 +1,4 @@
-import { C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_MEDIA_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR } from "./actionTypes";
+import { C_DELETE_ACTUAL_IMAGE, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_MEDIA_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR } from "./actionTypes";
 import { resetData_TempNewCardData } from "./reset_tempNewCardData";
 
 const initialState = {
@@ -391,6 +391,7 @@ const initialState = {
         groomDetails:{
             firstName:'',
             lastName:'',
+            groomActualImage:null,
             imageUrl:'',
             parentDetails:[],
             socialMediaLinks:[
@@ -411,6 +412,7 @@ const initialState = {
         brideDetails:{
             firstName:'',
             lastName:'',
+            brideActualImage:null,
             imageUrl:'',
             brideImageCropDone:false,
             parentDetails:[],
@@ -598,6 +600,30 @@ export const reducer = (state=initialState,action)=>{
             return{
                 ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,subEvents:{...state.tempNewCardData.eventDetails.subEvents,engagementDetails:{...state.tempNewCardData.eventDetails.subEvents.engagementDetails,engagementTime:action.payload}}}}
             }
+
+        break;
+        case C_SAVE_ACTUAL_IMAGE:
+            if (action.personDetails === 'brideDetails') {
+                return{
+                    ...state,tempNewCardData:{...state.tempNewCardData,brideDetails:{...state.tempNewCardData.brideDetails,brideActualImage:action.payload}}
+                }
+            } else {
+                return{
+                    ...state,tempNewCardData:{...state.tempNewCardData,groomDetails:{...state.tempNewCardData.groomDetails,groomActualImage:action.payload}}
+                }
+            }
+            
+        break;
+        case C_DELETE_ACTUAL_IMAGE:
+            if (action.personDetails === 'brideDetails') {
+                return{
+                    ...state,tempNewCardData:{...state.tempNewCardData,brideDetails:{...state.tempNewCardData.brideDetails,brideActualImage:null}}
+                }
+            } else {
+                return{
+                    ...state,tempNewCardData:{...state.tempNewCardData,groomDetails:{...state.tempNewCardData.groomDetails,groomActualImage:null}}
+                }
+            } 
 
         break;
         default:

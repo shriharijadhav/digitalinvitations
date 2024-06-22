@@ -1,9 +1,9 @@
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import { Box, Button, Checkbox, Flex, FormControl, FormHelperText, FormLabel, Input, ListItem, Radio, RadioGroup, Text, UnorderedList } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import { Box, Button, Checkbox, Flex, FormControl, FormHelperText, FormLabel, Image, Input, ListItem, Radio, RadioGroup, Text, UnorderedList } from '@chakra-ui/react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { previousPage, proceedToNextPage, saveBrideAndGroomBasicDetails, saveMediaDetails } from '../../store/actions'
+import { deleteActualImage, previousPage, proceedToNextPage, saveActualImage, saveBrideAndGroomBasicDetails, saveMediaDetails } from '../../store/actions'
 import {
     Accordion,
     AccordionItem,
@@ -18,7 +18,8 @@ import ImageCrop from './ImageCrop'
   const C_BrideAndGroomDetails = () => {
 
  
-
+    const brideImageRef = useRef();
+    const groomImageRef = useRef();
 
     const dispatch = useDispatch()
     const [value, setValue] = React.useState('1')
@@ -28,6 +29,8 @@ import ImageCrop from './ImageCrop'
     const brideDetails = useSelector((store) => store.tempNewCardData.brideDetails)
     const b_firstName = brideDetails.firstName
     const b_lastName = brideDetails.lastName
+    const b_actualImage = brideDetails.brideActualImage;
+
     const b_instagramLink = brideDetails.socialMediaLinks[0].instagramLink
     const b_facebookLink = brideDetails.socialMediaLinks[1].facebookLink
     const b_youtubeLink = brideDetails.socialMediaLinks[2].youtubeLink
@@ -36,6 +39,7 @@ import ImageCrop from './ImageCrop'
     const groomDetails = useSelector((store) => store.tempNewCardData.groomDetails)
     const g_firstName = groomDetails.firstName
     const g_lastName = groomDetails.lastName
+    const g_actualImage = groomDetails.groomActualImage;
     const g_instagramLink = groomDetails.socialMediaLinks[0].instagramLink
     const g_facebookLink = groomDetails.socialMediaLinks[1].facebookLink
     const g_youtubeLink = groomDetails.socialMediaLinks[2].youtubeLink
@@ -112,6 +116,11 @@ import ImageCrop from './ImageCrop'
             // Check if file size is less than or equal to 2MB (2 * 1024 * 1024 bytes)
             if (file.size <= 2 * 1024 * 1024) {
                 // File size is within limit, you can proceed with handling the file
+                if (event.target.name === 'brideImage') {
+                    dispatch(saveActualImage(event.target.files[0],'brideDetails'))                    
+                } else {
+                    dispatch(saveActualImage(event.target.files[0],'groomDetails'))                    
+                }
                 console.log('File selected:', file);
             } else {
                 // File size exceeds 2MB, show alert to the user
@@ -230,7 +239,25 @@ import ImageCrop from './ImageCrop'
             </FormControl>
             <FormControl >
                 <FormLabel p={'5px 0px'} >Upload Bride's Image</FormLabel>
-                <Input variant={'ghost'} type='file' name='brideImage' onChange={handleFileChange} />
+                <Input variant={'ghost'} file={b_actualImage} ref={brideImageRef} type='file' name='brideImage' onChange={handleFileChange} />
+                {b_actualImage && (
+                    <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
+                    <Text>Bride Image Preview</Text>
+                    <Image
+                      src={URL.createObjectURL(b_actualImage)}
+                      alt="Bride"
+                      border={'1px solid gray'}
+                      p={'2px'}
+                      boxSize="150px"
+                      objectFit="cover"
+                      mt={2}
+                    />
+                    <Button onClick={()=>{
+                        dispatch(deleteActualImage('brideDetails'));
+                        brideImageRef.current.value = null;
+                    }}>Delete</Button>
+                    </Flex>
+                  )}
             </FormControl>
             <FormControl p={'5px 0px'}>
                 <FormLabel p={'10px 0px'}>Bride's Social Media Links</FormLabel>
@@ -299,7 +326,25 @@ import ImageCrop from './ImageCrop'
         </FormControl>
         <FormControl >
             <FormLabel p={'5px 0px'} >Upload Groom's Image</FormLabel>
-            <Input variant={'ghost'} type='file' name='groomImage' onChange={handleFileChange} />
+            <Input variant={'ghost'} type='file' file={g_actualImage} ref={groomImageRef} name='groomImage' onChange={handleFileChange} />
+            {g_actualImage && (
+                <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
+                <Text>Groom Image Preview</Text>
+                <Image
+                  src={URL.createObjectURL(g_actualImage)}
+                  alt="Groom"
+                  border={'1px solid gray'}
+                  p={'2px'}
+                  boxSize="150px"
+                  objectFit="cover"
+                  mt={2}
+                />
+                <Button onClick={()=>{
+                    dispatch(deleteActualImage('groomDetails'));
+                    groomImageRef.current.value = null;
+                }}>Delete</Button>
+                </Flex>
+              )}
             </FormControl>
         <FormControl p={'5px 0px'}>
             <FormLabel p={'10px 0px'}>Groom's Social Media Links</FormLabel>

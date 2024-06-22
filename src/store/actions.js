@@ -1,4 +1,4 @@
-import { C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_MEDIA_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR } from "./actionTypes"
+import { C_DELETE_ACTUAL_IMAGE, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_MEDIA_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR } from "./actionTypes"
 
 export const updateEventCardLink = (fieldName,data,cardId) => {
     console.log(fieldName,data,cardId)
@@ -57,6 +57,16 @@ export const saveBrideAndGroomBasicDetails = (category,fieldName,data) => {
         type:C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS,category:category,fieldName:fieldName,payload:data
     }
 
+}
+export const saveActualImage = (image,personDetails) =>{
+    return{
+        type:C_SAVE_ACTUAL_IMAGE,payload:image,personDetails:personDetails
+    }
+}
+export const deleteActualImage = (personDetails) =>{
+    return{
+        type:C_DELETE_ACTUAL_IMAGE,personDetails:personDetails
+    }
 }
 
 export const saveMediaDetails = (category,index,fieldName,data)=>{
