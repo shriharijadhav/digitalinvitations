@@ -3,7 +3,7 @@ import { Box, Button, Checkbox, Flex, Grid, GridItem, Input, ListItem, Radio, Ra
 import React, { useEffect, useRef, useState } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { makeEngagementAddressSameAsWedding, previousPage, proceedToNextPage, saveEngagementAddress, saveEngagementDate, saveEngagementTime, toggleAddEngagementDetails } from '../../store/actions'
+import { makeHaldiAddressSameAsWedding, previousPage, proceedToNextPage, saveHaldiAddress, saveHaldiDate, saveSangeetTime, toggleAddHaldiDetails } from '../../store/actions'
 import {
     Modal,
     ModalOverlay,
@@ -15,34 +15,35 @@ import {
   } from '@chakra-ui/react'
 
   import { FaCircleCheck } from "react-icons/fa6";
-import CustomDatePickerForEngagement from './CustomDatePickerForEngagement'
-import TimePicker from './TimePicker'
+import CustomDatePickerForHaldi from './CustomDatePickerForHaldi'
+import TimePickerForHaldi from './TimePickerForHaldi'
+ 
+const C_HaldiDetails = () => {
 
-const C_EngagementDetails = () => {
 
 
-
-    const engagementAddressRef = useRef()
+    const haldiAddressRef = useRef()
     const toast = useToast()
-    const [showDatePickerForEngagement,setShowDatePickerForEngagement] = useState(false)
-    const [selectedForEngagement, setSelectedForEngagement] = useState();
+    const [showDatePickerForHaldi,setShowDatePickerForHaldi] = useState(false)
+    const [selectedForHaldi, setSelectedForHaldi] = useState();
 
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const dispatch = useDispatch()
     const [value, setValue] = React.useState('1')
-    const [formattedDateForEngagement, setFormattedDateForEngagement] = useState('');
+    const [formattedDateForHaldi, setFormattedDateForHaldi] = useState('');
 
-    const engagementDetails = useSelector((store) => store.tempNewCardData.eventDetails.subEvents.engagementDetails)
-    const engagementDate = engagementDetails.engagementDate 
-    const engagementTime = engagementDetails.engagementTime
-    const raw_engagementDate = engagementDetails.raw_engagementDate
-    const engagementAddress = engagementDetails.engagementAddress
+    const haldiDetails = useSelector((store) => store.tempNewCardData.eventDetails.subEvents.haldiDetails)
+    const haldiDate = haldiDetails.haldiDate 
+    const haldiTime = haldiDetails.haldiTime
+    const raw_haldiDate = haldiDetails.raw_haldiDate
+    const haldiAddress = haldiDetails.haldiAddress
+
     
  
-    const isEngagementAddressSameAsWedding = useSelector((store) => store.tempNewCardData.eventDetails.isEngagementAddressSameAsWedding)
-    const addEngagementDetails = useSelector((store) => store.tempNewCardData.eventDetails.addEngagementDetails)
+    const isHaldiAddressSameAsWedding = useSelector((store) => store.tempNewCardData.eventDetails.isHaldiAddressSameAsWedding)
+    const addHaldiDetails = useSelector((store) => store.tempNewCardData.eventDetails.addHaldiDetails)
 
     const currentPage = useSelector((store) => store.currentPage)
     const totalPages = useSelector((store) => store.totalPages)
@@ -95,33 +96,33 @@ const C_EngagementDetails = () => {
     }
 
     const handleCheck = () => {
-        if(isEngagementAddressSameAsWedding){
-            dispatch(makeEngagementAddressSameAsWedding(false))
+        if(isHaldiAddressSameAsWedding){
+            dispatch(makeHaldiAddressSameAsWedding(false))
         }else{
-            dispatch(makeEngagementAddressSameAsWedding(true))
-            dispatch(saveEngagementAddress(''))
-            engagementAddressRef.current.value = '';
+            dispatch(makeHaldiAddressSameAsWedding(true))
+            dispatch(saveHaldiAddress(''))
+            haldiAddressRef.current.value = '';
             // clear the address 
         }
     }
 
-    const handleToggleEngage = () => {
-        if (addEngagementDetails) {
-            dispatch(toggleAddEngagementDetails(false))
+    const handleToggleHaldi = () => {
+        if (addHaldiDetails) {
+            dispatch(toggleAddHaldiDetails(false))
         } else {
-             dispatch(toggleAddEngagementDetails(true))
+             dispatch(toggleAddHaldiDetails(true))
         }
     }
     useEffect(() =>{
-        if(selectedForEngagement){
-            const newString = formatDate(selectedForEngagement);
-            setFormattedDateForEngagement(newString);
-            dispatch(saveEngagementDate(newString,selectedForEngagement));
+        if(selectedForHaldi){
+            const newString = formatDate(selectedForHaldi);
+            setFormattedDateForHaldi(newString);
+            dispatch(saveHaldiDate(newString,selectedForHaldi));
         }
   
        
 
-    },[selectedForEngagement])
+    },[selectedForHaldi])
 
     
 
@@ -130,50 +131,50 @@ const C_EngagementDetails = () => {
     <Flex w={'100%'} direction={'column'}>
         <UnorderedList>
             <ListItem>
-            <Text fontSize={'lg'}>Engagement Details (Optional)</Text>
+            <Text fontSize={'lg'}>Haldi Details (Optional)</Text>
             </ListItem>
         </UnorderedList>
-        <Checkbox  p={'15px 0px'} colorScheme='green' isChecked={addEngagementDetails} onChange={handleToggleEngage} >
-                Click to {addEngagementDetails?'remove':'add'} Engagement Details
+        <Checkbox  p={'15px 0px'} colorScheme='green' isChecked={addHaldiDetails} onChange={handleToggleHaldi} >
+                Click to {addHaldiDetails?'remove':'add'} Haldi Details
               </Checkbox>
     </Flex>
 
 
     {
-        addEngagementDetails && (
+        addHaldiDetails && (
             <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
     <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
         <Text w={['100%','100%','45%','45%']} pr={'20px'}>Event Type :</Text>
-        <Input value={'Engagement'} readOnly />            
+        <Input value={'Haldi'} readOnly />            
     </Flex>
     <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
-        <Text   w={['100%','100%','30%','30%']}>Engagement Date: </Text>
+        <Text   w={['100%','100%','30%','30%']}>Haldi Date: </Text>
         <Flex w={['90%','80%','60%','60%']} position={'relative'} >
             <Box w={['90%','80%','60%','60%']} >
-                <Input placeholder='Click to select Date' value={engagementDate} readOnly  onClick={()=>{setShowDatePickerForEngagement(true)}}/>
+                <Input placeholder='Click to select Date' value={haldiDate} readOnly  onClick={()=>{setShowDatePickerForHaldi(true)}}/>
             </Box>
             {
-                showDatePickerForEngagement && (
-                <CustomDatePickerForEngagement selectedForEngagement={selectedForEngagement} setSelectedForEngagement={setSelectedForEngagement} setShowDatePickerForEngagement={setShowDatePickerForEngagement}/>
+                showDatePickerForHaldi && (
+                <CustomDatePickerForHaldi selectedForHaldi={selectedForHaldi} setSelectedForHaldi={setSelectedForHaldi} setShowDatePickerForHaldi={setShowDatePickerForHaldi}/>
                 )
             }
         </Flex>   
     </Flex>
 
     {
-        engagementTime &&(
+        haldiTime &&(
             <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
         <Text w={['100%','100%','30%','30%']} pr={'20px'} >Selected Time :</Text>
-        <Input value={engagementTime} w={'max-content'} readOnly />            
+        <Input value={haldiTime} w={'max-content'} readOnly />            
     </Flex>
         )
     }
     <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
-        <Text   w={['100%','100%','30%','30%']}>Engagement time: </Text>
+        <Text   w={['100%','100%','30%','30%']}>Haldi time: </Text>
         
         <Flex w={['90%','80%','60%','60%']} position={'relative'} >
             <Box w={['90%','80%','60%','60%']} >
-            <Button onClick={onOpen}>{engagementTime?'Click to change Time':'Click to select Time'}</Button>
+            <Button onClick={onOpen}>{haldiTime?'Click to change Time':'Click to select Time'}</Button>
             </Box>
             <Flex w={'100%'}>
              <Modal  closeOnOverlayClick={false} size={'full'} isOpen={isOpen} onClose={onClose}>
@@ -181,12 +182,12 @@ const C_EngagementDetails = () => {
             <ModalContent  >
              <Flex p={'10px 0px'}   w={'100%'} justifyContent={'center'} bg={'indigo'}>
               <Flex w={'80%'} justifyContent={'space-between'} alignItems={'center'}>
-              <Text fontSize={['large','large','x-large','x-large']}>Engagement Time</Text>
+              <Text fontSize={['large','large','x-large','x-large']}>Haldi Time</Text>
               <Button onClick={()=>{
-                if(engagementTime){
+                if(haldiTime){
                     onClose()
                 }else{
-                    customToast('Please select engagement time first.')
+                    customToast('Please select haldi time first.')
                 }
               }}>Close</Button>
               </Flex>
@@ -195,7 +196,7 @@ const C_EngagementDetails = () => {
               
 
                   <Flex w={'100%'}   justifyContent={'center'} alignItems={'center'} p={'20px 0px'}>
-                  <TimePicker onClose={onClose} />
+                  <TimePickerForHaldi onClose={onClose} />
 
                   </Flex>
               </ModalBody>
@@ -209,20 +210,20 @@ const C_EngagementDetails = () => {
     </Flex>
 
     <Flex w={'100%'} direction={['column','column','row','row']} pt={'5px'} gap={['10px','10px','20px','20px']} justifyContent={'left'} alignItems={['start','start','start','start']}>
-                <Flex alignItems={['start','start','center','center']} justifyContent={['left','left','left','left']} gap={['10px','10px','10px','10px']} w={isEngagementAddressSameAsWedding?['100%','100%','100%','100%']:['100%','100%','30%','30%']}  direction={isEngagementAddressSameAsWedding?['column','column','row','row']:'column'} >
-                <Text >Engagement Address:</Text>
-                <Checkbox ml={isEngagementAddressSameAsWedding?['0px','0px','20px','20px']:'0px'} p={'15px 0px'} colorScheme='green' isChecked={isEngagementAddressSameAsWedding} onChange={handleCheck} >
+                <Flex alignItems={['start','start','center','center']} justifyContent={['left','left','left','left']} gap={['10px','10px','10px','10px']} w={isHaldiAddressSameAsWedding?['100%','100%','100%','100%']:['100%','100%','30%','30%']}  direction={isHaldiAddressSameAsWedding?['column','column','row','row']:'column'} >
+                <Text >Haldi Address:</Text>
+                <Checkbox ml={isHaldiAddressSameAsWedding?['0px','0px','20px','20px']:'0px'} p={'15px 0px'} colorScheme='green' isChecked={isHaldiAddressSameAsWedding} onChange={handleCheck} >
                 Same as Wedding Address
               </Checkbox>
                 </Flex>
                  <Textarea
-                    ref={engagementAddressRef}
-                    display={!isEngagementAddressSameAsWedding?'flex':'none'}
+                    ref={haldiAddressRef}
+                    value={haldiAddress}
+                    display={!isHaldiAddressSameAsWedding?'flex':'none'}
                     w={['90%','80%','60%','60%']}
                     rounded={'lg'}
-                    value={engagementAddress}
-                    onChange={(e)=>{dispatch(saveEngagementAddress(e.target.value))}}
-                    placeholder="Enter the detailed engagement address"
+                    onChange={(e)=>{dispatch(saveHaldiAddress(e.target.value))}}
+                    placeholder="Enter the detailed Haldi address"
                     size="sm"
                 />
             </Flex>
@@ -262,4 +263,4 @@ const C_EngagementDetails = () => {
   )
 }
 
-export default C_EngagementDetails
+export default C_HaldiDetails

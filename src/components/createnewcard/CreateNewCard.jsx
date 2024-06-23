@@ -9,6 +9,9 @@ import { resetCurrentPageToOne, resetTempNewCardData } from '../../store/actions
 import C_BrideAndGroomDetails from './C_BrideAndGroomDetails'
 import C_CoverImages from './C_CoverImages'
 import C_EngagementDetails from './C_EngagementDetails'
+import C_SangeetDetails from './C_SangeetDetails'
+import C_HaldiDetails from './C_HaldiDetails'
+import C_ParentDetails from './C_ParentDetails'
 
 const CreateNewCard = () => {
 
@@ -28,19 +31,19 @@ const CreateNewCard = () => {
             return <C_CoverImages/>
         }else if(currentPage === 5){
             return <C_EngagementDetails/>
+        }else if(currentPage === 6){
+            return <C_SangeetDetails/>
+        }else if(currentPage === 7){
+            return <C_HaldiDetails/>
+        }else if(currentPage === 8){
+            return <C_ParentDetails/>
         }
     }
      
   return (
     <Flex w={'100%'} justifyContent={'center'} alignItems={'center'}>
-        <Flex w={['90%','90%','80%','80%']} justifyContent={'center'} alignItems={'center'} direction={'column'}> 
-            <Flex w={'80%'}  justifyContent={'start'} p={'20px 0px'} position={'relative'} >
-                <Link to={'/dashboard'}>
-                <Button  display={'flex'} gap={'10px'}
-                onClick={()=>{dispatch(resetCurrentPageToOne());dispatch(resetTempNewCardData())}}
-                ><IoArrowBack/>Dashboard</Button>
-                </Link>
-             </Flex>
+        <Flex w={['90%','90%','80%','80%']}   p={'30px 0px'} justifyContent={'center'} alignItems={'center'} direction={'column'}> 
+            
             <Flex w={'80%'}  justifyContent={'center'}  position={'relative'} >
                 <Text fontSize={'x-large'}>Create new Card</Text>
             </Flex>

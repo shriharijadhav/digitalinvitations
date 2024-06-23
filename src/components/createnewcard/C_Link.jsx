@@ -1,13 +1,24 @@
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input, Select, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input, Select, Text, Textarea, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { proceedToNextPage, saveEventCardLink, saveEventDate, savedEventName } from '../../store/actions'
+import { proceedToNextPage, saveEventAddress, saveEventAddress_Google_Map_link, saveEventCardLink, saveEventDate, savedEventName } from '../../store/actions'
 import CustomDatePicker from './CustomDatePicker'
-
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+  } from '@chakra-ui/react'
+import TimePickerForEvent from './TimePickerForEvent'
 const C_Link = () => {
 
     const toast = useToast()
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
 
     const [showDatePicker,setShowDatePicker] = useState(false)
     const [selected, setSelected] = useState();
@@ -101,16 +112,16 @@ const C_Link = () => {
     <Flex w={['100%','90%','90%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
         <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
             <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
-                <Text w={['100%','100%','40%','40%']}>Select Event Type :</Text>
+                <Text w={['100%','100%','30%','30%']}>Select Event Type :</Text>
                 <Select w={['90%','80%','60%','60%']} placeholder='Select option' name='eventName' onChange={(e)=>{handleSelect(e.target.name,e.target.value)}}>
                         <option value='Wedding'>Wedding</option>
                 </Select>            
             </Flex>
             <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
-                <Text w={['100%','100%','40%','40%']}>Select Date: </Text>
+                <Text w={['100%','100%','30%','30%']}>Select Date: </Text>
                 <Flex w={['90%','80%','60%','60%']} position={'relative'} >
                     <Box w={['90%','80%','60%','60%']} >
-                        <Input placeholder='Select Date' value={eventDate} readOnly w={'100%'} onClick={()=>{setShowDatePicker(true)}}/>
+                        <Input placeholder='Click to select Date' value={eventDate} readOnly w={'100%'} onClick={()=>{setShowDatePicker(true)}}/>
                     </Box>
                     {
                         showDatePicker && (
@@ -119,6 +130,79 @@ const C_Link = () => {
                     }
                 </Flex>            
             </Flex>
+             
+            {
+                eventTime &&(
+                    <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
+                <Text w={['100%','100%','30%','30%']} pr={'20px'} >Selected Event Time:</Text>
+                <Input value={eventTime} w={'max-content'} readOnly />            
+            </Flex>
+                )
+            }
+            <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
+        
+            <Text   w={['100%','100%','30%','30%']}>Event time: </Text>
+        
+        <Flex w={['90%','80%','60%','60%']} position={'relative'} >
+            <Box w={['90%','80%','60%','60%']} >
+            <Button fontSize={'sm'} onClick={onOpen}>{eventTime?'Click to change Time':'Click to select Time'}</Button>
+            </Box>
+            <Flex w={'100%'}>
+             <Modal  closeOnOverlayClick={false} size={'full'} isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent  >
+             <Flex p={'10px 0px'}   w={'100%'} justifyContent={'center'} bg={'indigo'}>
+              <Flex w={'80%'} justifyContent={'space-between'} alignItems={'center'}>
+              <Text fontSize={['large','large','x-large','x-large']}>Event Time</Text>
+              <Button onClick={()=>{
+                if(eventTime){
+                    onClose()
+                }else{
+                    customToast('Please select Event time first.')
+                }
+              }}>Close</Button>
+              </Flex>
+             </Flex>
+              <ModalBody w={'100%'} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'} pb={6}>
+              
+
+                  <Flex w={'100%'}   justifyContent={'center'} alignItems={'center'} p={'20px 0px'}>
+                  <TimePickerForEvent onClose={onClose} />
+
+                  </Flex>
+              </ModalBody>
+    
+              
+            </ModalContent>
+          </Modal>
+            </Flex>
+            
+        </Flex>   
+            </Flex>
+            <Flex w={'100%'} direction={['column','column','row','row']} pt={'5px'} gap={['10px','10px','20px','20px']} justifyContent={'left'} alignItems={['start','start','start','start']}>
+                <Text w={['100%','100%','30%','30%']}>Event Address:</Text>
+                 <Textarea
+                    w={['90%','80%','60%','60%']}
+                    rounded={'lg'}
+                    onChange={(e)=>{dispatch(saveEventAddress(e.target.value))}}
+                    placeholder="Enter the detailed event address"
+                    size="sm"
+                />
+            </Flex>
+
+            <Flex w={'100%'} direction={['column','column','row','row']} pt={'5px'} gap={['10px','10px','20px','20px']} justifyContent={'left'} alignItems={['start','start','start','start']}>
+                <Text w={['100%','100%','30%','30%']}>Google Map Location Link</Text>
+                 <Input
+                    w={['90%','80%','60%','60%']}
+                    rounded={'lg'}
+                    onChange={(e)=>{dispatch(saveEventAddress_Google_Map_link(e.target.value))}}
+                    placeholder="Enter the google map link for event address"
+                    size="sm"
+                />
+            </Flex>
+
+
+            
         </Flex>
         <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
             <Text fontSize={'large'} fontWeight={500}>Choose link display name</Text>

@@ -3,7 +3,7 @@ import { Box, Button, Checkbox, Flex, Grid, GridItem, Input, ListItem, Radio, Ra
 import React, { useEffect, useRef, useState } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { makeEngagementAddressSameAsWedding, previousPage, proceedToNextPage, saveEngagementAddress, saveEngagementDate, saveEngagementTime, toggleAddEngagementDetails } from '../../store/actions'
+import { makeSangeetAddressSameAsWedding, previousPage, proceedToNextPage, saveSangeetAddress, saveSangeetDate, saveSangeetTime, toggleAddSangeetDetails } from '../../store/actions'
 import {
     Modal,
     ModalOverlay,
@@ -15,34 +15,35 @@ import {
   } from '@chakra-ui/react'
 
   import { FaCircleCheck } from "react-icons/fa6";
-import CustomDatePickerForEngagement from './CustomDatePickerForEngagement'
-import TimePicker from './TimePicker'
+import CustomDatePickerForSangeet from './CustomDatePickerForSangeet'
+import TimePickerForSangeet from './TimePickerForSangeet'
+ 
+const C_SangeetDetails = () => {
 
-const C_EngagementDetails = () => {
 
 
-
-    const engagementAddressRef = useRef()
+    const sangeetAddressRef = useRef()
     const toast = useToast()
-    const [showDatePickerForEngagement,setShowDatePickerForEngagement] = useState(false)
-    const [selectedForEngagement, setSelectedForEngagement] = useState();
+    const [showDatePickerForSangeet,setShowDatePickerForSangeet] = useState(false)
+    const [selectedForSangeet, setSelectedForSangeet] = useState();
 
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const dispatch = useDispatch()
     const [value, setValue] = React.useState('1')
-    const [formattedDateForEngagement, setFormattedDateForEngagement] = useState('');
+    const [formattedDateForSangeet, setFormattedDateForSangeet] = useState('');
 
-    const engagementDetails = useSelector((store) => store.tempNewCardData.eventDetails.subEvents.engagementDetails)
-    const engagementDate = engagementDetails.engagementDate 
-    const engagementTime = engagementDetails.engagementTime
-    const raw_engagementDate = engagementDetails.raw_engagementDate
-    const engagementAddress = engagementDetails.engagementAddress
+    const sangeetDetails = useSelector((store) => store.tempNewCardData.eventDetails.subEvents.sangeetDetails)
+    const sangeetDate = sangeetDetails.sangeetDate 
+    const sangeetTime = sangeetDetails.sangeetTime
+    const raw_sangeetDate = sangeetDetails.raw_sangeetDate
+    const sangeetAddress = sangeetDetails.sangeetAddress
+
     
  
-    const isEngagementAddressSameAsWedding = useSelector((store) => store.tempNewCardData.eventDetails.isEngagementAddressSameAsWedding)
-    const addEngagementDetails = useSelector((store) => store.tempNewCardData.eventDetails.addEngagementDetails)
+    const isSangeetAddressSameAsWedding = useSelector((store) => store.tempNewCardData.eventDetails.isSangeetAddressSameAsWedding)
+    const addSangeetDetails = useSelector((store) => store.tempNewCardData.eventDetails.addSangeetDetails)
 
     const currentPage = useSelector((store) => store.currentPage)
     const totalPages = useSelector((store) => store.totalPages)
@@ -95,33 +96,33 @@ const C_EngagementDetails = () => {
     }
 
     const handleCheck = () => {
-        if(isEngagementAddressSameAsWedding){
-            dispatch(makeEngagementAddressSameAsWedding(false))
+        if(isSangeetAddressSameAsWedding){
+            dispatch(makeSangeetAddressSameAsWedding(false))
         }else{
-            dispatch(makeEngagementAddressSameAsWedding(true))
-            dispatch(saveEngagementAddress(''))
-            engagementAddressRef.current.value = '';
+            dispatch(makeSangeetAddressSameAsWedding(true))
+            dispatch(saveSangeetAddress(''))
+            sangeetAddressRef.current.value = '';
             // clear the address 
         }
     }
 
-    const handleToggleEngage = () => {
-        if (addEngagementDetails) {
-            dispatch(toggleAddEngagementDetails(false))
+    const handleToggleSangeet = () => {
+        if (addSangeetDetails) {
+            dispatch(toggleAddSangeetDetails(false))
         } else {
-             dispatch(toggleAddEngagementDetails(true))
+             dispatch(toggleAddSangeetDetails(true))
         }
     }
     useEffect(() =>{
-        if(selectedForEngagement){
-            const newString = formatDate(selectedForEngagement);
-            setFormattedDateForEngagement(newString);
-            dispatch(saveEngagementDate(newString,selectedForEngagement));
+        if(selectedForSangeet){
+            const newString = formatDate(selectedForSangeet);
+            setFormattedDateForSangeet(newString);
+            dispatch(saveSangeetDate(newString,selectedForSangeet));
         }
   
        
 
-    },[selectedForEngagement])
+    },[selectedForSangeet])
 
     
 
@@ -130,50 +131,50 @@ const C_EngagementDetails = () => {
     <Flex w={'100%'} direction={'column'}>
         <UnorderedList>
             <ListItem>
-            <Text fontSize={'lg'}>Engagement Details (Optional)</Text>
+            <Text fontSize={'lg'}>Sangeet Details (Optional)</Text>
             </ListItem>
         </UnorderedList>
-        <Checkbox  p={'15px 0px'} colorScheme='green' isChecked={addEngagementDetails} onChange={handleToggleEngage} >
-                Click to {addEngagementDetails?'remove':'add'} Engagement Details
+        <Checkbox  p={'15px 0px'} colorScheme='green' isChecked={addSangeetDetails} onChange={handleToggleSangeet} >
+                Click to {addSangeetDetails?'remove':'add'} Sangeet Details
               </Checkbox>
     </Flex>
 
 
     {
-        addEngagementDetails && (
+        addSangeetDetails && (
             <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
     <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
         <Text w={['100%','100%','45%','45%']} pr={'20px'}>Event Type :</Text>
-        <Input value={'Engagement'} readOnly />            
+        <Input value={'Sangeet'} readOnly />            
     </Flex>
     <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
-        <Text   w={['100%','100%','30%','30%']}>Engagement Date: </Text>
+        <Text   w={['100%','100%','30%','30%']}>Sangeet Date: </Text>
         <Flex w={['90%','80%','60%','60%']} position={'relative'} >
             <Box w={['90%','80%','60%','60%']} >
-                <Input placeholder='Click to select Date' value={engagementDate} readOnly  onClick={()=>{setShowDatePickerForEngagement(true)}}/>
+                <Input placeholder='Click to select Date' value={sangeetDate} readOnly  onClick={()=>{setShowDatePickerForSangeet(true)}}/>
             </Box>
             {
-                showDatePickerForEngagement && (
-                <CustomDatePickerForEngagement selectedForEngagement={selectedForEngagement} setSelectedForEngagement={setSelectedForEngagement} setShowDatePickerForEngagement={setShowDatePickerForEngagement}/>
+                showDatePickerForSangeet && (
+                <CustomDatePickerForSangeet selectedForSangeet={selectedForSangeet} setSelectedForSangeet={setSelectedForSangeet} setShowDatePickerForSangeet={setShowDatePickerForSangeet}/>
                 )
             }
         </Flex>   
     </Flex>
 
     {
-        engagementTime &&(
+        sangeetTime &&(
             <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
         <Text w={['100%','100%','30%','30%']} pr={'20px'} >Selected Time :</Text>
-        <Input value={engagementTime} w={'max-content'} readOnly />            
+        <Input value={sangeetTime} w={'max-content'} readOnly />            
     </Flex>
         )
     }
     <Flex w={'100%'} direction={['column','column','row','row']} gap={'20px'} justifyContent={'left'} alignItems={['start','start','center','center']}>
-        <Text   w={['100%','100%','30%','30%']}>Engagement time: </Text>
+        <Text   w={['100%','100%','30%','30%']}>Sangeet time: </Text>
         
         <Flex w={['90%','80%','60%','60%']} position={'relative'} >
             <Box w={['90%','80%','60%','60%']} >
-            <Button onClick={onOpen}>{engagementTime?'Click to change Time':'Click to select Time'}</Button>
+            <Button onClick={onOpen}>{sangeetTime?'Click to change Time':'Click to select Time'}</Button>
             </Box>
             <Flex w={'100%'}>
              <Modal  closeOnOverlayClick={false} size={'full'} isOpen={isOpen} onClose={onClose}>
@@ -181,12 +182,12 @@ const C_EngagementDetails = () => {
             <ModalContent  >
              <Flex p={'10px 0px'}   w={'100%'} justifyContent={'center'} bg={'indigo'}>
               <Flex w={'80%'} justifyContent={'space-between'} alignItems={'center'}>
-              <Text fontSize={['large','large','x-large','x-large']}>Engagement Time</Text>
+              <Text fontSize={['large','large','x-large','x-large']}>Sangeet Time</Text>
               <Button onClick={()=>{
-                if(engagementTime){
+                if(sangeetTime){
                     onClose()
                 }else{
-                    customToast('Please select engagement time first.')
+                    customToast('Please select sangeet time first.')
                 }
               }}>Close</Button>
               </Flex>
@@ -195,7 +196,7 @@ const C_EngagementDetails = () => {
               
 
                   <Flex w={'100%'}   justifyContent={'center'} alignItems={'center'} p={'20px 0px'}>
-                  <TimePicker onClose={onClose} />
+                  <TimePickerForSangeet onClose={onClose} />
 
                   </Flex>
               </ModalBody>
@@ -209,20 +210,20 @@ const C_EngagementDetails = () => {
     </Flex>
 
     <Flex w={'100%'} direction={['column','column','row','row']} pt={'5px'} gap={['10px','10px','20px','20px']} justifyContent={'left'} alignItems={['start','start','start','start']}>
-                <Flex alignItems={['start','start','center','center']} justifyContent={['left','left','left','left']} gap={['10px','10px','10px','10px']} w={isEngagementAddressSameAsWedding?['100%','100%','100%','100%']:['100%','100%','30%','30%']}  direction={isEngagementAddressSameAsWedding?['column','column','row','row']:'column'} >
-                <Text >Engagement Address:</Text>
-                <Checkbox ml={isEngagementAddressSameAsWedding?['0px','0px','20px','20px']:'0px'} p={'15px 0px'} colorScheme='green' isChecked={isEngagementAddressSameAsWedding} onChange={handleCheck} >
+                <Flex alignItems={['start','start','center','center']} justifyContent={['left','left','left','left']} gap={['10px','10px','10px','10px']} w={isSangeetAddressSameAsWedding?['100%','100%','100%','100%']:['100%','100%','30%','30%']}  direction={isSangeetAddressSameAsWedding?['column','column','row','row']:'column'} >
+                <Text >Sangeet Address:</Text>
+                <Checkbox ml={isSangeetAddressSameAsWedding?['0px','0px','20px','20px']:'0px'} p={'15px 0px'} colorScheme='green' isChecked={isSangeetAddressSameAsWedding} onChange={handleCheck} >
                 Same as Wedding Address
               </Checkbox>
                 </Flex>
                  <Textarea
-                    ref={engagementAddressRef}
-                    display={!isEngagementAddressSameAsWedding?'flex':'none'}
+                    ref={sangeetAddressRef}
+                    value={sangeetAddress}
+                    display={!isSangeetAddressSameAsWedding?'flex':'none'}
                     w={['90%','80%','60%','60%']}
                     rounded={'lg'}
-                    value={engagementAddress}
-                    onChange={(e)=>{dispatch(saveEngagementAddress(e.target.value))}}
-                    placeholder="Enter the detailed engagement address"
+                    onChange={(e)=>{dispatch(saveSangeetAddress(e.target.value))}}
+                    placeholder="Enter the detailed sangeet address"
                     size="sm"
                 />
             </Flex>
@@ -262,4 +263,4 @@ const C_EngagementDetails = () => {
   )
 }
 
-export default C_EngagementDetails
+export default C_SangeetDetails

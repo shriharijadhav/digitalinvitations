@@ -1,45 +1,83 @@
 export const resetData_TempNewCardData = {
-    cardStatus: 'Inactive',
-    paymentStatus: 'UNPAID',
-    cardLink: '',
+    cardId:1,// created by appWrite
+    cardStatus:'',
+    paymentStatus:'',
+    cardLink:'',
     selectedTemplate: '',
-    eventDetails: {
-        eventName: '',
-        raw_eventDate: '',
-        eventDate: '',
-        eventTime: '',
-        location: {
-            locationName: '',
-            locationAddress: '',
-            locationCity: ''
-        },
-        subEvents: []
+    eventDetails:{
+        eventName:'',
+        raw_eventDate:'',
+        eventDate:'',
+        eventTime:'',
+        eventAddress:'',
+        subEvents:{
+            engagementDetails:{
+                engagementName:'Engagement',
+                raw_engagementDate:'',
+                engagementDate:'',
+                engagementTime:'',
+                location:{
+                    locationName:'',
+                    locationAddress:'',
+                    locationCity:''
+                }
+            }
+        }
     },
-    groomDetails: {
-        firstName: 'Groom',
-        lastName: 'Name',
-        imageUrl: '',
-        parentDetails: [],
-        socialMediaLinks: []
+    groomDetails:{
+        firstName:'',
+        lastName:'',
+        groomActualImage:null,
+        imageUrl:'',
+        parentDetails:[],
+        socialMediaLinks:[
+            {
+            id:0,
+            instagramLink:''
+            },
+            {
+            id:1,
+            facebookLink:''
+            },
+            {
+            id:2,
+            youtubeLink:''
+            }
+        ]
     },
-    brideDetails: {
-        firstName: 'Bride',
-        lastName: 'Name',
-        imageUrl: '',
-        parentDetails: [],
-        socialMediaLinks: []
+    brideDetails:{
+        firstName:'',
+        lastName:'',
+        brideActualImage:null,
+        imageUrl:'',
+        brideImageCropDone:false,
+        parentDetails:[],
+        socialMediaLinks:[
+            {
+            id:0,
+            instagramLink:''
+            },
+            {
+            id:1,
+            facebookLink:''
+            },
+            {
+            id:2,
+            youtubeLink:''
+            }
+        ]
     },
-    galleryDetails: [],
-    videoGalleryDetails: [],
-    InviterDetails: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        contactNumber: '',
-        whatsappName: '',
-        location: ''
+    galleryDetails:[],
+    videoGalleryDetails:[],
+    InviterDetails:{
+        firstName:'',
+        lastName:'',
+        email:'',
+        contactNumber:'',
+        whatsappName:'',
+        location:''
     },
-    backgroundMusicDetails: {
-        audioFileSrc: ''
+    backgroundMusicDetails:{
+        audioFileSrc:'',
     }
 };

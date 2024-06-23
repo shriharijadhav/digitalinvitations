@@ -1,9 +1,9 @@
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import { Box, Button, Checkbox, Flex, FormControl, FormHelperText, FormLabel, Image, Input, ListItem, Radio, RadioGroup, Text, UnorderedList } from '@chakra-ui/react'
+import { Box, Button, Checkbox, Divider, Flex, FormControl, FormHelperText, FormLabel, Image, Input, ListItem, Radio, RadioGroup, Text, UnorderedList } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { changePriorityBetweenBrideAndGroom, deleteActualImage, previousPage, proceedToNextPage, saveActualImage, saveBrideAndGroomBasicDetails, saveMediaDetails } from '../../store/actions'
+import { changePriorityBetweenParents, clearParentDetails, deleteActualImage, deleteActualImage_brideParent, previousPage, proceedToNextPage, saveActualImage, saveBrideAndGroomBasicDetails, saveBrideParentActualImage, saveBrideParentDetails, saveGroomParentActualImage, saveGroomParentDetails, saveMediaDetails, toggleAddHaldiDetails, toggleAddParentDetails } from '../../store/actions'
 import {
     Accordion,
     AccordionItem,
@@ -15,19 +15,58 @@ import ImageCrop from './ImageCrop'
    
 
 
-  const C_BrideAndGroomDetails = () => {
+  const C_ParentDetails = () => {
 
+    const addParentDetails = useSelector(store=>store.tempNewCardData.eventDetails.addParentDetails)
+    const b_parentDetails  = useSelector((store) => store.tempNewCardData.brideDetails.parentDetails) 
+    const b_motherDetails = b_parentDetails.motherDetails
+    const b_mother_firstName = b_motherDetails.firstName
+    const b_mother_lastName = b_motherDetails.lastName
+    const brideMotherActualImage = b_motherDetails.brideMotherActualImage
+
+    const b_fatherDetails = b_parentDetails.fatherDetails
+    const b_father_firstName = b_fatherDetails.firstName
+    const b_father_lastName = b_fatherDetails.lastName
+    const brideFatherActualImage = b_fatherDetails.brideFatherActualImage
+
+
+
+    const g_parentDetails  = useSelector((store) => store.tempNewCardData.groomDetails.parentDetails) 
+    const g_motherDetails = g_parentDetails.motherDetails
+    const g_mother_firstName = g_motherDetails.firstName
+    const g_mother_lastName = g_motherDetails.lastName
+    const groomMotherActualImage = g_motherDetails.groomMotherActualImage
+
+    const g_fatherDetails = g_parentDetails.fatherDetails
+    const g_father_firstName = g_fatherDetails.firstName
+    const g_father_lastName = g_fatherDetails.lastName
+    const groomFatherActualImage = g_fatherDetails.groomFatherActualImage
+
+    const priorityBetweenParents = useSelector((store) => store.tempNewCardData.eventDetails.priorityBetweenParents)
+
+    // console.log(b_parentDetails)
+
+    const handleToggleParents = () => {
+        if (addParentDetails) {
+            console.log('if')
+            dispatch(toggleAddParentDetails(false))
+            dispatch(clearParentDetails())
+        } else {
+            console.log('else')
+             dispatch(toggleAddParentDetails(true))
+        }
+    }
  
-    const brideImageRef = useRef();
-    const groomImageRef = useRef();
+    const brideMotherImageRef = useRef();
+    const brideFatherImageRef = useRef();
+
+    const groomMotherImageRef = useRef();
+    const groomFatherImageRef = useRef();
 
     const dispatch = useDispatch()
     const [value, setValue] = React.useState('1')
     const currentPage = useSelector((store) => store.currentPage)
     const totalPages = useSelector((store) => store.totalPages)
-
-
-    const priorityBetweenBrideAndGroom = useSelector((store) => store.tempNewCardData.eventDetails.priorityBetweenBrideAndGroom)
 
     const brideDetails = useSelector((store) => store.tempNewCardData.brideDetails)
     const b_firstName = brideDetails.firstName
@@ -64,10 +103,16 @@ import ImageCrop from './ImageCrop'
           })
     }
 
-    const handleChangeForBride = (e) => {
+    const handleChangeForBrideParent = (e) => {
         const inputValue = e.target.value;
         const filteredValue = inputValue.replace(/[^a-zA-Z]/g, '');
-        dispatch(saveBrideAndGroomBasicDetails('brideDetails', e.target.name, filteredValue))
+        dispatch(saveBrideParentDetails(e.target.name, filteredValue))    
+    }
+
+    const handleChangeForGroomParent = (e) => {
+        const inputValue = e.target.value;
+        const filteredValue = inputValue.replace(/[^a-zA-Z]/g, '');
+        dispatch(saveGroomParentDetails(e.target.name, filteredValue))    
     }
 
     const handleChangeForGroom = (e) => {
@@ -119,12 +164,21 @@ import ImageCrop from './ImageCrop'
             // Check if file size is less than or equal to 2MB (2 * 1024 * 1024 bytes)
             if (file.size <= 2 * 1024 * 1024) {
                 // File size is within limit, you can proceed with handling the file
-                if (event.target.name === 'brideImage') {
-                    dispatch(saveActualImage(event.target.files[0],'brideDetails'))                    
-                } else {
-                    dispatch(saveActualImage(event.target.files[0],'groomDetails'))                    
+                if (event.target.name === 'brideMotherImage') {
+                    dispatch(saveBrideParentActualImage(event.target.files[0],'brideMotherImage'))                    
+                } else if(event.target.name === 'brideFatherImage') {
+                    dispatch(saveBrideParentActualImage(event.target.files[0],'brideFatherImage'))                    
+                } else if (event.target.name === 'groomMotherImage') {
+                    dispatch(saveGroomParentActualImage(event.target.files[0],'groomMotherImage'))                    
+                } else if(event.target.name === 'groomFatherImage') {
+                    dispatch(saveGroomParentActualImage(event.target.files[0],'groomFatherImage'))                    
+                }else{
+                    alert('Something went wrong');
+                    event.target.value = null;
+
                 }
-                console.log('File selected:', file);
+
+
             } else {
                 // File size exceeds 2MB, show alert to the user
                 alert('File size exceeds 2MB. Please select a smaller file.');
@@ -163,35 +217,39 @@ import ImageCrop from './ImageCrop'
 
   return (
     <Flex as={'form'} w={['100%','90%','90%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
-    <Flex w={'100%'}>
+    <Flex w={'100%'} direction={'column'}>
         <UnorderedList>
             <ListItem>
-            <Text fontSize={'lg'}>Bride & Groom Details </Text>
+            <Text fontSize={'lg'}>Parent's Details (Optional)</Text>
             </ListItem>
         </UnorderedList>
+        <Checkbox  p={'15px 0px'} colorScheme='green' isChecked={addParentDetails} onChange={handleToggleParents} >
+                Click to {addParentDetails?'remove':'add'} Parent's Details
+              </Checkbox>
     </Flex>
 
 
-    <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
+    {
+        addParentDetails && (
+            <Flex direction={'column'} w={'100%'} gap={'20px'}>
+        <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
         <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>
         <Text w={['100%','100%','40%','40%']} fontSize={'lg'}>Priority or Preference</Text>
-        <Text fontSize={'sm'}>Choose between Bride and Groom to show details first?        </Text>
+        <Text fontSize={'sm'}>Choose between Bride's and Groom's parents to show details first?        </Text>
         <Flex direction={'column'}>
-            <RadioGroup onChange={(value)=>{dispatch(changePriorityBetweenBrideAndGroom(value))}} value={priorityBetweenBrideAndGroom}>
+            <RadioGroup onChange={(value)=>{dispatch(changePriorityBetweenParents(value))}} value={priorityBetweenParents}>
                 <Flex  direction={'column'} gap={'10px'}>
-                <Radio colorScheme='blue' value='bride'>
-                    Bride
+                <Radio colorScheme='blue' value='brideParents'>
+                    Bride's Parents
                 </Radio>
-                <Radio colorScheme='blue' value='groom'>
-                    Groom
+                <Radio colorScheme='blue' value='groomParents'>
+                    Groom's Parents
                 </Radio>
                 </Flex>
             </RadioGroup>
         </Flex>
         </Flex>
     </Flex>
-
-
 
     <Accordion w={'100%'} border={'1px solid gray'} rounded={'lg'} overflow={'hidden'} allowToggle>
                     <AccordionItem   >
@@ -220,34 +278,34 @@ import ImageCrop from './ImageCrop'
                     </Flex>    
                         </AccordionPanel>
             </AccordionItem>
-        </Accordion>
+    </Accordion>
 
     <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
         <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>
-        <Text w={['100%','100%','40%','40%']} fontSize={'lg'}>Bride's Details</Text>
+        <Text w={['100%','100%','40%','40%']} fontSize={'lg'}>Bride's Parent Details</Text>
         <Flex w={'100%'} direction={'column'} gap={'10px'}>
             <FormControl>
-                <FormLabel>First Name</FormLabel>
-                <Input type='text' gender='brideDetails' name='firstName'   placeholder="Enter bride's first name" 
-                value={b_firstName} 
-                onChange={(e)=>{handleChangeForBride(e)}}
+                <FormLabel>Mother's First Name</FormLabel>
+                <Input type='text'  name='brideMotherFirstName'   placeholder="Enter bride's mother's first name" 
+                value={b_mother_firstName} 
+                onChange={(e)=>{handleChangeForBrideParent(e)}}
                 />
             </FormControl>
             <FormControl>
-                <FormLabel>Last Name</FormLabel>
-                <Input type='text' gender='brideDetails' name='lastName'   placeholder="Enter bride's last name"  
-                value={b_lastName} 
-                onChange={(e)=>{handleChangeForBride(e)}}
+                <FormLabel>Mother's Last Name</FormLabel>
+                <Input type='text' name='brideMotherLastName'   placeholder="Enter bride's mother's last name"  
+                value={b_mother_lastName} 
+                onChange={(e)=>{handleChangeForBrideParent(e)}}
                  />
             </FormControl>
             <FormControl >
-                <FormLabel p={'5px 0px'} >Upload Bride's Image</FormLabel>
-                <Input variant={'ghost'} file={b_actualImage} ref={brideImageRef} type='file' name='brideImage' onChange={handleFileChange} />
-                {b_actualImage && (
+                <FormLabel p={'5px 0px'} >Upload Bride's Mother's Image</FormLabel>
+                <Input variant={'ghost'} file={brideMotherActualImage} ref={brideMotherImageRef} type='file' name='brideMotherImage' onChange={handleFileChange} />
+                {brideMotherActualImage && (
                     <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
-                    <Text>Bride Image Preview</Text>
+                    <Text>Bride's Mother's Image Preview</Text>
                     <Image
-                      src={URL.createObjectURL(b_actualImage)}
+                      src={URL.createObjectURL(brideMotherActualImage)}
                       alt="Bride"
                       border={'1px solid gray'}
                       p={'2px'}
@@ -255,86 +313,83 @@ import ImageCrop from './ImageCrop'
                       objectFit="cover"
                       mt={2}
                     />
-                    <Button onClick={()=>{
-                        dispatch(deleteActualImage('brideDetails'));
-                        brideImageRef.current.value = null;
+                    <Button w={'max-content'} onClick={()=>{
+                        dispatch(deleteActualImage_brideParent('brideMotherImage'));
+                        brideMotherImageRef.current.value = null;
                     }}>Delete</Button>
                     </Flex>
                   )}
             </FormControl>
-            <FormControl p={'5px 0px'}>
-                <FormLabel p={'10px 0px'}>Bride's Social Media Links</FormLabel>
-                <Accordion w={'100%'} border={'1px solid gray'} allowToggle>
-                        <AccordionItem   >
-                            <h2>
-                            <AccordionButton >
-                                <Box as='span' flex='1' textAlign='left'>
-                                <Text>Enter Social Media Links</Text>
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-                            </h2>
-                            <AccordionPanel transition={'all'} transitionDelay={'1s'}  pb={4}>
-                                <Flex w={'100%'} direction={'column'} gap={'15px'}>
-                                    <Flex w={'100%'} gap={'10px'}>
-                                        <Checkbox size='md' colorScheme='green' isChecked={instagramChecked} onChange={()=>{setInstagramChecked(!instagramChecked)}}></Checkbox>
-                                        <Input placeholder="Enter Bride's Instagram profile link" isDisabled={instagramChecked?false:true} type='text'
-                                        name='instagramLink'
-                                        value={b_instagramLink}
-                                        onChange={(e)=>{handleMediaUrlChange_bride(e)}}
-                                        />
-                                    </Flex>
-                                    <Flex w={'100%'} gap={'10px'}>
-                                        <Checkbox size='md' colorScheme='green' isChecked={facebookChecked} onChange={()=>{setFacebookChecked(!facebookChecked)}}></Checkbox>
-                                        <Input placeholder="Enter Bride's Facebook profile link" isDisabled={facebookChecked?false:true} type='text'
-                                        name='facebookLink'
-                                        value={b_facebookLink}
-                                        onChange={(e)=>{handleMediaUrlChange_bride(e)}}
-                                        />
-                                    </Flex>
-                                    <Flex w={'100%'} gap={'10px'}>
-                                    <Checkbox size='md' colorScheme='green' isChecked={youtubeChecked} onChange={()=>{setYoutubeChecked(!youtubeChecked)}}></Checkbox>
-                                    <Input placeholder="Enter Bride's Youtube channel link" isDisabled={youtubeChecked?false:true} type='text'
-                                    name='youtubeLink'
-                                    value={b_youtubeLink}
-                                    onChange={(e)=>{handleMediaUrlChange_bride(e)}}
-                                    />
-                                    </Flex>
-                                </Flex>
-                            </AccordionPanel>
-                </AccordionItem>
-            </Accordion>
+            
+            <Divider />
+
+            <FormControl pt={'10px'}>
+                <FormLabel>Father's First Name</FormLabel>
+                <Input type='text'  name='brideFatherFirstName'   placeholder="Enter bride's father's first name" 
+                value={b_father_firstName} 
+                onChange={(e)=>{handleChangeForBrideParent(e)}}
+                />
             </FormControl>
+            <FormControl>
+                <FormLabel>Father's Last Name</FormLabel>
+                <Input type='text'  name='brideFatherLastName'    placeholder="Enter bride's father's last name"  
+                value={b_father_lastName} 
+                onChange={(e)=>{handleChangeForBrideParent(e)}}
+                 />
+            </FormControl>
+            <FormControl >
+                <FormLabel p={'5px 0px'} >Upload Bride's Father's Image</FormLabel>
+                <Input variant={'ghost'} file={brideFatherActualImage} ref={brideMotherImageRef} type='file' name='brideFatherImage' onChange={handleFileChange} />
+                {brideFatherActualImage && (
+                    <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
+                    <Text>Bride's Father's Image Preview</Text>
+                    <Image
+                      src={URL.createObjectURL(brideFatherActualImage)}
+                      alt="Bride"
+                      border={'1px solid gray'}
+                      p={'2px'}
+                      boxSize="150px"
+                      objectFit="cover"
+                      mt={2}
+                    />
+                    <Button w={'max-content'} onClick={()=>{
+                        dispatch(deleteActualImage_brideParent('brideFatherImage'));
+                        brideFatherImageRef.current.value = null;
+                    }}>Delete</Button>
+                    </Flex>
+                  )}
+            </FormControl>
+
         </Flex>
         </Flex>
     </Flex>
 
     <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
     <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>
-    <Text w={['100%','100%','40%','40%']} fontSize={'lg'}>Groom's Details</Text>
+    <Text w={['100%','100%','40%','40%']} fontSize={'lg'}>Groom's Parent Details</Text>
     <Flex w={'100%'} direction={'column'} gap={'10px'}>
         <FormControl>
             <FormLabel>First Name</FormLabel>
-            <Input type='text' gender='groomDetails' name='firstName'   placeholder="Enter groom's first name" 
-            value={g_firstName} 
-            onChange={(e)=>{handleChangeForGroom(e)}}
+            <Input type='text' name='groomMotherFirstName'   placeholder="Enter groom's mother's first name" 
+            value={g_mother_firstName} 
+            onChange={(e)=>{handleChangeForGroomParent(e)}}
             />
         </FormControl>
         <FormControl>
             <FormLabel>Last Name</FormLabel>
-            <Input type='text' gender='groomDetails' name='lastName'   placeholder="Enter groom's last name" 
-            value={g_lastName} 
-            onChange={(e)=>{handleChangeForGroom(e)}}
+            <Input type='text' name='groomMotherLastName'  placeholder="Enter groom's mother's last name" 
+            value={g_mother_lastName} 
+            onChange={(e)=>{handleChangeForGroomParent(e)}}
             />        
         </FormControl>
         <FormControl >
-            <FormLabel p={'5px 0px'} >Upload Groom's Image</FormLabel>
-            <Input variant={'ghost'} type='file' file={g_actualImage} ref={groomImageRef} name='groomImage' onChange={handleFileChange} />
-            {g_actualImage && (
+            <FormLabel p={'5px 0px'} >Upload Groom's Mother's Image</FormLabel>
+            <Input variant={'ghost'} type='file' file={groomMotherActualImage} ref={groomMotherImageRef} name='groomMotherImage' onChange={handleFileChange} />
+            {groomMotherActualImage && (
                 <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
                 <Text>Groom Image Preview</Text>
                 <Image
-                  src={URL.createObjectURL(g_actualImage)}
+                  src={URL.createObjectURL(groomMotherActualImage)}
                   alt="Groom"
                   border={'1px solid gray'}
                   p={'2px'}
@@ -344,57 +399,57 @@ import ImageCrop from './ImageCrop'
                 />
                 <Button onClick={()=>{
                     dispatch(deleteActualImage('groomDetails'));
-                    groomImageRef.current.value = null;
+                    groomMotherImageRef.current.value = null;
                 }}>Delete</Button>
                 </Flex>
               )}
-            </FormControl>
-        <FormControl p={'5px 0px'}>
-            <FormLabel p={'10px 0px'}>Groom's Social Media Links</FormLabel>
-            <Accordion w={'100%'} border={'1px solid gray'} allowToggle>
-                    <AccordionItem   >
-                        <h2>
-                        <AccordionButton >
-                            <Box as='span' flex='1' textAlign='left'>
-                            <Text>Enter Social Media Links</Text>
-                            </Box>
-                            <AccordionIcon />
-                        </AccordionButton>
-                        </h2>
-                        <AccordionPanel transition={'all'} transitionDelay={'1s'}  pb={4}>
-                            <Flex w={'100%'} direction={'column'} gap={'15px'}>
-                                <Flex w={'100%'} gap={'10px'}>
-                                <Checkbox size='md' colorScheme='green' isChecked={g_instagramChecked} onChange={()=>{setG_InstagramChecked(!g_instagramChecked)}}></Checkbox>
-                                <Input placeholder="Enter Groom's Instagram profile link" isDisabled={g_instagramChecked?false:true} type='text'
-                                name='instagramLink'
-                                value={g_instagramLink}
-                                onChange={(e)=>{handleMediaUrlChange_groom(e)}}
-                                />
-                                </Flex>
-                                <Flex w={'100%'} gap={'10px'}>
-                                <Checkbox size='md' colorScheme='green' isChecked={g_facebookChecked} onChange={()=>{setG_FacebookChecked(!g_facebookChecked)}}></Checkbox>
-                                <Input placeholder="Enter Groom's Facebook profile link" isDisabled={g_instagramChecked?false:true} type='text'
-                                name='facebookLink'
-                                value={g_facebookLink}
-                                onChange={(e)=>{handleMediaUrlChange_groom(e)}}
-                                />
-                                </Flex>
-                                <Flex w={'100%'} gap={'10px'}>
-                                <Checkbox size='md' colorScheme='green' isChecked={g_youtubeChecked} onChange={()=>{setG_YoutubeChecked(!g_youtubeChecked)}}></Checkbox>
-                                <Input placeholder="Enter Groom's Facebook profile link" isDisabled={g_youtubeChecked?false:true} type='text'
-                                name='youtubeLink'
-                                value={g_youtubeLink}
-                                onChange={(e)=>{handleMediaUrlChange_groom(e)}}
-                                />
-                                </Flex>
-                            </Flex>
-                        </AccordionPanel>
-            </AccordionItem>
-        </Accordion>
         </FormControl>
+        
+        <Divider />
+
+        <FormControl>
+            <FormLabel>Groom's Mother's First Name</FormLabel>
+            <Input type='text' name='groomFatherFirstName'   placeholder="Enter groom's mother's first name" 
+            value={g_father_firstName} 
+            onChange={(e)=>{handleChangeForGroomParent(e)}}
+            />
+        </FormControl>
+        <FormControl>
+            <FormLabel>Groom's Mother's Last Name</FormLabel>
+            <Input type='text' name='groomFatherLastName'  placeholder="Enter groom's mother's last name" 
+            value={g_father_lastName} 
+            onChange={(e)=>{handleChangeForGroomParent(e)}}
+            />        
+        </FormControl>
+        <FormControl >
+            <FormLabel p={'5px 0px'} >Upload Groom's Mother's Image</FormLabel>
+            <Input variant={'ghost'} type='file' file={groomFatherActualImage} ref={groomFatherImageRef} name='groomFatherImage' onChange={handleFileChange} />
+            {groomFatherActualImage && (
+                <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
+                <Text>Groom Image Preview</Text>
+                <Image
+                  src={URL.createObjectURL(groomFatherActualImage)}
+                  alt="Groom"
+                  border={'1px solid gray'}
+                  p={'2px'}
+                  boxSize="150px"
+                  objectFit="cover"
+                  mt={2}
+                />
+                <Button onClick={()=>{
+                    dispatch(deleteActualImage('groomDetails'));
+                    groomFatherImageRef.current.value = null;
+                }}>Delete</Button>
+                </Flex>
+              )}
+        </FormControl>
+        
     </Flex>
     </Flex>
-</Flex>
+    </Flex>
+    </Flex>
+        )
+    }
 
     <Flex border={'1px solid grey'} w={'100%'} gap={'10px'}  p={'10px 10px'} borderRadius={'10px'}>
            <Flex  gap={'20px'}  w={'100%'} position={'relative'} justifyContent={'space-between'} alignItems={'center'} p={'10px 0px'}>
@@ -413,7 +468,7 @@ import ImageCrop from './ImageCrop'
             <ArrowForwardIcon/>
            </Button>
            </Flex>
-        </Flex>
+    </Flex>
 
     <Flex  w={'100%'} gap={'10px'} justifyContent={'center'}  borderRadius={'10px'}>
      <Button w={'100%'} colorScheme={'purple'}  leftIcon={<FaEye />}>
@@ -426,4 +481,4 @@ import ImageCrop from './ImageCrop'
   )
 }
 
-export default C_BrideAndGroomDetails
+export default C_ParentDetails
