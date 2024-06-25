@@ -176,10 +176,10 @@ const C_EngagementDetails = () => {
             <Button onClick={onOpen}>{engagementTime?'Click to change Time':'Click to select Time'}</Button>
             </Box>
             <Flex w={'100%'}>
-             <Modal  closeOnOverlayClick={false} size={'full'} isOpen={isOpen} onClose={onClose}>
+             <Modal  closeOnOverlayClick={false} size={['sm','md','lg','xl']} isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent  >
-             <Flex p={'10px 0px'}   w={'100%'} justifyContent={'center'} bg={'indigo'}>
+             <Flex p={'10px 0px'}   w={'100%'} justifyContent={'center'} bg={'purple.500'}>
               <Flex w={'80%'} justifyContent={'space-between'} alignItems={'center'}>
               <Text fontSize={['large','large','x-large','x-large']}>Engagement Time</Text>
               <Button onClick={()=>{

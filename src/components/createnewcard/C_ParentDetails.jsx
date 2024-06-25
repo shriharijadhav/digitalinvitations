@@ -3,7 +3,7 @@ import { Box, Button, Checkbox, Divider, Flex, FormControl, FormHelperText, Form
 import React, { useEffect, useRef, useState } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { changePriorityBetweenParents, clearParentDetails, deleteActualImage, deleteActualImage_brideParent, previousPage, proceedToNextPage, saveActualImage, saveBrideAndGroomBasicDetails, saveBrideParentActualImage, saveBrideParentDetails, saveGroomParentActualImage, saveGroomParentDetails, saveMediaDetails, toggleAddHaldiDetails, toggleAddParentDetails } from '../../store/actions'
+import { changePriorityBetweenParents, clearParentDetails,  deleteActualImage_brideParent, deleteActualImage_groomParent, makeApiCallToSaveNewCard, previousPage, proceedToNextPage, saveActualImage, saveBrideAndGroomBasicDetails, saveBrideParentActualImage, saveBrideParentDetails, saveGroomParentActualImage, saveGroomParentDetails, saveMediaDetails, toggleAddHaldiDetails, toggleAddParentDetails } from '../../store/actions'
 import {
     Accordion,
     AccordionItem,
@@ -17,6 +17,34 @@ import ImageCrop from './ImageCrop'
 
   const C_ParentDetails = () => {
 
+    const data =useSelector(store=>store.tempNewCardData)
+     const formData = new FormData()
+
+    if(data.brideDetails.brideActualImage){
+        formData.append('brideActualImage', data.brideDetails.brideActualImage);
+    }
+    if(data.groomDetails.groomActualImage){
+        formData.append('groomActualImage', data.groomDetails.groomActualImage);
+    }
+    if(data.brideDetails.parentDetails.motherDetails.brideMotherActualImage){
+        formData.append('brideMotherActualImage', data.brideDetails.parentDetails.motherDetails.brideMotherActualImage);
+    }
+    if(data.brideDetails.parentDetails.fatherDetails.brideFatherActualImage){
+        formData.append('brideFatherActualImage', data.brideDetails.parentDetails.fatherDetails.brideFatherActualImage);
+    }
+    if(data.groomDetails.parentDetails.motherDetails.groomMotherActualImage){
+        formData.append('groomMotherActualImage', data.groomDetails.parentDetails.motherDetails.groomMotherActualImage);
+    }
+    if(data.groomDetails.parentDetails.fatherDetails.groomFatherActualImage){
+        formData.append('groomFatherActualImage', data.groomDetails.parentDetails.fatherDetails.groomFatherActualImage);
+    }
+     
+    formData.append('allData',JSON.stringify(data));
+
+    // for (const [key, value] of formData.entries()) {
+    //     console.log(`${key}:`, value);
+    // }
+    
     const addParentDetails = useSelector(store=>store.tempNewCardData.eventDetails.addParentDetails)
     const b_parentDetails  = useSelector((store) => store.tempNewCardData.brideDetails.parentDetails) 
     const b_motherDetails = b_parentDetails.motherDetails
@@ -300,7 +328,7 @@ import ImageCrop from './ImageCrop'
             </FormControl>
             <FormControl >
                 <FormLabel p={'5px 0px'} >Upload Bride's Mother's Image</FormLabel>
-                <Input variant={'ghost'} file={brideMotherActualImage} ref={brideMotherImageRef} type='file' name='brideMotherImage' onChange={handleFileChange} />
+                <Input variant={'ghost'}  file={brideMotherActualImage} ref={brideMotherImageRef} type='file' name='brideMotherImage' onChange={handleFileChange} />
                 {brideMotherActualImage && (
                     <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
                     <Text>Bride's Mother's Image Preview</Text>
@@ -315,7 +343,7 @@ import ImageCrop from './ImageCrop'
                     />
                     <Button w={'max-content'} onClick={()=>{
                         dispatch(deleteActualImage_brideParent('brideMotherImage'));
-                        brideMotherImageRef.current.value = null;
+                        brideMotherImageRef.current = null;
                     }}>Delete</Button>
                     </Flex>
                   )}
@@ -339,7 +367,7 @@ import ImageCrop from './ImageCrop'
             </FormControl>
             <FormControl >
                 <FormLabel p={'5px 0px'} >Upload Bride's Father's Image</FormLabel>
-                <Input variant={'ghost'} file={brideFatherActualImage} ref={brideMotherImageRef} type='file' name='brideFatherImage' onChange={handleFileChange} />
+                <Input variant={'ghost'} file={brideFatherActualImage} ref={brideFatherImageRef} type='file' name='brideFatherImage' onChange={handleFileChange} />
                 {brideFatherActualImage && (
                     <Flex w={'max-content'} p={'10px 0px'} direction={'column'} gap={'5px'}>
                     <Text>Bride's Father's Image Preview</Text>
@@ -354,7 +382,7 @@ import ImageCrop from './ImageCrop'
                     />
                     <Button w={'max-content'} onClick={()=>{
                         dispatch(deleteActualImage_brideParent('brideFatherImage'));
-                        brideFatherImageRef.current.value = null;
+                        brideFatherImageRef.current = null;
                     }}>Delete</Button>
                     </Flex>
                   )}
@@ -398,8 +426,8 @@ import ImageCrop from './ImageCrop'
                   mt={2}
                 />
                 <Button onClick={()=>{
-                    dispatch(deleteActualImage('groomDetails'));
-                    groomMotherImageRef.current.value = null;
+                    dispatch(deleteActualImage_groomParent('groomMotherImage'));
+                    groomMotherImageRef.current= null;
                 }}>Delete</Button>
                 </Flex>
               )}
@@ -437,8 +465,8 @@ import ImageCrop from './ImageCrop'
                   mt={2}
                 />
                 <Button onClick={()=>{
-                    dispatch(deleteActualImage('groomDetails'));
-                    groomFatherImageRef.current.value = null;
+                    dispatch(deleteActualImage_groomParent('groomFatherImage'));
+                    groomFatherImageRef.current = null;
                 }}>Delete</Button>
                 </Flex>
               )}
@@ -461,8 +489,8 @@ import ImageCrop from './ImageCrop'
            </Button>
             <Text pr={'20px'} display={['none','none','flex','flex']}>Step {currentPage}/{totalPages}</Text>
            <Button fontSize={'sm'} isDisabled={currentPage<=totalPages? false:true}   display={'flex'} gap={'5px'} alignItems={'center'} justifyContent={'center'}
-           
-           onClick={linkPage_handleNext}
+           onClick={()=>{dispatch(makeApiCallToSaveNewCard(formData))}}
+        //    onClick={linkPage_handleNext}
            >
             Next
             <ArrowForwardIcon/>

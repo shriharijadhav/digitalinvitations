@@ -47,9 +47,9 @@ const TimePickerForEvent = ({onClose}) => {
     };
 
     return (
-             <Flex direction={'column'} gap={'40px'}  w={['100%','100%','50%','30%']}  borderWidth="1px" borderRadius="lg" overflow="hidden" p={5} boxShadow="md" mt={5}>
+             <Flex direction={'column'} gap={'40px'}  w={['100%','80%','80%','80%']}  borderWidth="1px" borderRadius="lg" overflow="hidden" p={5} boxShadow="md" mt={5}>
                 <Flex w={'100%'} direction={'column'} spacing={4}>
-                    <Text p={'10px 0px'} fontSize={['large','large','x-large','x-large']} fontWeight={['500','500','700','700']}> Select Engagement Time
+                    <Text p={'10px 0px'} fontSize={['large','large','x-large','x-large']} fontWeight={['500','500','700','700']}> Select Event Time
                     </Text>
                     <FormControl p={'5px 0px'}>
                         <FormLabel>Hour</FormLabel>
@@ -83,7 +83,7 @@ const TimePickerForEvent = ({onClose}) => {
                     </FormControl>
                    
                 </Flex>
-                <Button colorScheme="teal" onClick={handleSelect}>
+                <Button colorScheme="purple" onClick={handleSelect}>
                 Select time
             </Button>
             </Flex>
