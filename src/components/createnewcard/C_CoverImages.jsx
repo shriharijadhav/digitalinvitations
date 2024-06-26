@@ -3,7 +3,7 @@ import { Button, Flex, Grid, GridItem, ListItem, Radio, RadioGroup, Text, Unorde
 import React, { useState } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { previousPage, proceedToNextPage } from '../../store/actions'
+import { previousPage, proceedToNextPage, updateGalleryDetails } from '../../store/actions'
 import {
     Modal,
     ModalOverlay,
@@ -19,42 +19,11 @@ import {
 const C_CoverImages = () => {
     const toast = useToast()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const galleryDetails = useSelector((store)=>store.tempNewCardData.galleryDetails)
+    const availableCovers = useSelector((store)=>store.tempNewCardData.availableCovers)
     const [selectedCoverId,setSelectedCoverId] = useState([1,3,5])
 
-    const availableCovers = [
-        {
-            id:1,
-            imgUrl:''
-        },
-        {
-            id:2,
-            imgUrl:''
-        },
-        {
-            id:3,
-            imgUrl:''
-        },
-        {
-            id:4,
-            imgUrl:''
-        },
-        {
-            id:5,
-            imgUrl:''
-        },
-        {
-            id:6,
-            imgUrl:''
-        },
-        {
-            id:7,
-            imgUrl:''
-        },
-        {
-            id:8,
-            imgUrl:''
-        }
-    ]
+    
     
     const dispatch = useDispatch()
     const [value, setValue] = React.useState('1')
@@ -107,7 +76,7 @@ const C_CoverImages = () => {
     <Flex border={'1px solid grey'} w={'100%'} gap={'10px'} direction={'column'} p={'10px 10px'} borderRadius={'10px'}>
         <Flex w={'100%'} direction={'column'} gap={'20px'} justifyContent={'left'} alignItems={'start'}>
             <Text fontSize={'lg'}>Browse and select a cover image from our curated defaults.</Text>
-            <Text>Id of selected Cover Images : {selectedCoverId.join(',')}</Text>
+            <Text>Id of selected Cover Images : {galleryDetails.join(',')}</Text>
             <Flex w={'100%'}>
             <Button onClick={onOpen}>View Album</Button>
 
@@ -128,18 +97,19 @@ const C_CoverImages = () => {
                         {
                             availableCovers.map(item=>(
                                 <GridItem onClick={()=>{
-                                    if(selectedCoverId.includes(item.id)){
-                                        if(selectedCoverId.length>3){
+                                    if(galleryDetails.includes(item.id)){
+                                        if(galleryDetails.length>3){
                                             console.log(item.id);
-                                        const tempArray = selectedCoverId.filter(c=>c!== item.id);
-                                        setSelectedCoverId(tempArray)
+                                            const tempArray = galleryDetails.filter(c=>c!== item.id);
+                                            dispatch(updateGalleryDetails(tempArray))
                                         }else{
                                             customToast('At least 3 images should be selected.')
 
                                         }
                                     }else{
-                                        if(selectedCoverId.length <5 ){
-                                            setSelectedCoverId(prev=>([...prev,item.id]))
+                                        if(galleryDetails.length <5 ){
+                                            const tempArray2 = [...galleryDetails,item.id]
+                                            dispatch(updateGalleryDetails(tempArray2))
                                         }else{
                                             customToast('You can select maximum 5 images at once')
                                         }
@@ -147,7 +117,7 @@ const C_CoverImages = () => {
                                 }} key={item.id} cursor={'pointer'} rounded={'md'} w={'300px'} bg={'beige'} h={'200px'} position={'relative'}>A
                                     <Flex position={'absolute'} p={'5px'} bottom={5} right={5}>
                                     {
-                                        selectedCoverId.includes(item.id) && (
+                                        galleryDetails.includes(item.id) && (
                                             <FaCircleCheck size={'30px'} color='teal' />
                                         )
                                     }
@@ -165,7 +135,7 @@ const C_CoverImages = () => {
                   <Button colorScheme='blue' mr={3} 
                   
                   onClick={() => {
-                    console.log('selectedCoverId',selectedCoverId);
+                    console.log('galleryDetails',galleryDetails);
                     onClose();
                   }}
                   >

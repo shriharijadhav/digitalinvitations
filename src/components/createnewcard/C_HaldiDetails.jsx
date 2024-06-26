@@ -31,8 +31,7 @@ const C_HaldiDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const dispatch = useDispatch()
-    const [value, setValue] = React.useState('1')
-    const [formattedDateForHaldi, setFormattedDateForHaldi] = useState('');
+     const [formattedDateForHaldi, setFormattedDateForHaldi] = useState('');
 
     const haldiDetails = useSelector((store) => store.tempNewCardData.eventDetails.subEvents.haldiDetails)
     const haldiDate = haldiDetails.haldiDate 
@@ -58,16 +57,13 @@ const C_HaldiDetails = () => {
     }
 
     const linkPage_handleNext = () => {
-        if(value){
-        // proceed to next page - update currentPage value
-        //    save data to database
-        // upon successful save . re-fetch updated data from   database
-
+        if(currentPage<8){
+        
         dispatch(proceedToNextPage())
 
         }
-        else if(!value){
-            customToast('Please select a valid template')
+        else{
+            customToast('You have reached the end of form')
         }
     }
 

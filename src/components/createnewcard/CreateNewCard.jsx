@@ -28,15 +28,16 @@ const CreateNewCard = () => {
             return <C_BrideAndGroomDetails/>
         }
         else if(currentPage === 4){
-            return <C_CoverImages/>
-        }else if(currentPage === 5){
-            return <C_EngagementDetails/>
-        }else if(currentPage === 6){
-            return <C_SangeetDetails/>
-        }else if(currentPage === 7){
-            return <C_HaldiDetails/>
-        }else if(currentPage === 8){
             return <C_ParentDetails/>
+        }
+        else if(currentPage === 5){
+            return <C_CoverImages/>
+        }else if(currentPage === 6){
+            return <C_EngagementDetails/>
+        }else if(currentPage === 7){
+            return <C_SangeetDetails/>
+        }else if(currentPage === 8){
+            return <C_HaldiDetails/>
         }
     }
      
