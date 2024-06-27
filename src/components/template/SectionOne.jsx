@@ -9,8 +9,8 @@ const SectionOne = () => {
   const brideFirstName = 'Bride'
   const groomFirstName = 'Groom'
   return (
-    <Flex position={'relative'} w={'100%'} h={'85vh'} bg={'red.100'} justifyContent={'center'}  alignItems={['end','center','center','center']} className='custom-cursor'>
-        <Flex w={'max-content'} bg={'gray'} justifyContent={'center'} alignItems={'center'} p={'20px'} >
+    <Flex position={'relative'} bg={'white'} w={'100%'} h={'85vh'} justifyContent={'center'}  alignItems={['center','center','center','center']} className='custom-cursor'>
+        <Flex w={'max-content'}  justifyContent={'center'} alignItems={'center'} p={'20px 0px'} >
             <Flex position={'relative'} className='scale-animation'  zIndex={20} w={['220px','250px','280px','300px']} h={['220px','250px','280px','300px']}   >
               <Flex border={'1px solid white'} position={'absolute'} h={['38px','43px','50px','54px']} right={0} top={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'top right'}></Flex>
               <Flex border={'1px solid white'} position={'absolute'} h={['38px','43px','50px','54px']} left={0} bottom={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'bottom left'}></Flex>

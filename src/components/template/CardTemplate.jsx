@@ -3,15 +3,14 @@ import React from 'react'
 import MySlider from './MySlider'
 import '../../App.css'
 import SectionOne from './SectionOne'
+import SectionTwo from './SectionTwo'
 
 const CardTemplate = () => {
 
-  const preference = 'bride'
-  const brideFirstName = 'Bride'
-  const groomFirstName = 'Groom'
   return (
-    <Flex direction={'column'} w={'100%'}>
+    <Flex direction={'column'} w={'100%'} bg={'white'} className='custom-cursor'>
       <SectionOne/>
+      <SectionTwo/>
     </Flex>
 
   )
