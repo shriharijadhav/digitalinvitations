@@ -6,9 +6,9 @@ import CountdownTimer from './CountdownTimer'
  
 const SectionTwo = () => {
     
-    const dateFromDB = "2024-06-22T18:30:00.000Z"
+    const dateFromDB = "2024-07-09T18:30:00.000Z"
     const targetDate = dateFromDB.split('T')[0];
-    const targetTime = "7:46 PM";
+    const targetTime = "12:32 PM";
 
     function combineDateAndTime(dateStr, timeStr) {
         // Parse the date
@@ -37,7 +37,7 @@ const SectionTwo = () => {
   return (
     <Flex w={'100%'}  color={'black'} justifyContent={'center'} alignItems={'center'} minH={'90vh'} >
         <Flex w={['90%','90%','80%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} p={'40px 0px'}>
-            <Flex w={'100%'} direction={['column','column','row','row']} justifyContent={'center'} gap={'30px'} alignItems={'center'}>
+            <Flex w={'100%'} direction={['column','column','row','row']} justifyContent={'center'} p={'30px 0px'} gap={'30px'} alignItems={'center'}>
                 <Flex bg={'red'} w={'100%'}>
                     <BrideOrGroom/>
                 </Flex>
