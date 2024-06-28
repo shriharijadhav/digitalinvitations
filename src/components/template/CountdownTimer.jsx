@@ -53,8 +53,8 @@ function CountdownTimer({ targetDateTime }) {
     }
     return (
         <Flex w={'100%'} direction={'column'} justifyContent={'center'} alignItems={'center'} fontSize={['medium','large','larger','x-large']}>
-            <Flex p={'20px'} flexWrap={'wrap'} gap={'30px'} h={'100px'} justifyContent={'center'} height={'auto'} alignItems={'center'} >
-            <Flex justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} pr={['10px','15px','20px','40px']}>
+            <Flex p={'20px'} flexWrap={'wrap'} gap={'15px'}  justifyContent={'center'} height={'auto'} alignItems={'center'} >
+            <Flex  justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} p={'0px 15px'} pr={'25px'} >
                 <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.days)}</Text>
                 <Text>days</Text>
                 <Box  position="absolute"
@@ -66,7 +66,7 @@ function CountdownTimer({ targetDateTime }) {
                 h={["90%","40%","40%","40%"]}
                 borderRight="1px solid black"></Box>
             </Flex>
-            <Flex justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} pr={['10px','15px','20px','40px']}>
+            <Flex justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} p={'0px 15px'} pr={'25px'}>
                 <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.hours)}</Text>
                 <Text>hours</Text>
                 <Box  position="absolute"
@@ -78,9 +78,9 @@ function CountdownTimer({ targetDateTime }) {
                 h={["90%","40%","40%","40%"]}
                 borderRight="1px solid black"></Box>
             </Flex>
-            <Flex justifyContent={'center'} alignItems={'center'} direction={'column'} position={'relative'} pr={['10px','15px','20px','40px']}>
+            <Flex justifyContent={'center'} alignItems={'center'} direction={'column'}  position={'relative'} p={'0px 15px'} pr={'25px'}>
                 <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.minutes)}</Text>
-                <Text>mins</Text>
+                <Text >mins</Text>
                 <Box  position="absolute"
                 mt="auto"
                 right={0}
@@ -90,7 +90,7 @@ function CountdownTimer({ targetDateTime }) {
                 h={["90%","40%","40%","40%"]}
                 borderRight="1px solid black"></Box>
             </Flex>
-            <Flex justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} pr={['10px','15px','20px','40px']}>
+            <Flex justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} p={'0px 15px'} pr={'25px'}>
                     <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.seconds)}</Text>
                     <Text>secs</Text>
             </Flex>

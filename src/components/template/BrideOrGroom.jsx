@@ -6,10 +6,10 @@ const BrideOrGroom = () => {
   return (
     <Flex w={'100%'} direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
     <Flex position={'relative'}  zIndex={20} w={['210px','230px','250px','280px']} h={['210px','230px','250px','280px']}   >
-    <Flex border={'1px solid white'} position={'absolute'} h={['45px','50px','58px','64px']} right={0} top={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'top right'}></Flex>
-    <Flex border={'1px solid white'} position={'absolute'} h={['45px','50px','58px','64px']} left={0} bottom={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'bottom left'}></Flex>
+    <Flex border={'1px solid white'} position={'absolute'} borderColor={'red.400'} h={['45px','50px','58px','64px']} right={0} top={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'top right'}></Flex>
+    <Flex border={'1px solid white'} position={'absolute'} borderColor={'red.400'} h={['45px','50px','58px','64px']} left={0} bottom={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'bottom left'}></Flex>
     <Flex justifyContent={'center'} alignItems={'center'} position={'absolute'} w={'100%'} h={'100%'} bg={'gray'} outline={'1px solid white'} zIndex={20} outlineOffset={'-8px'} borderRadius={'full'}
-    backgroundImage={`url(https://image.wedmegood.com/resized-nw/1300X/wp-content/uploads/2021/12/255481849_268219471918936_4913651595211305236.jpg)`}
+    backgroundImage={'url(https://image.wedmegood.com/resized-nw/1300X/wp-content/uploads/2021/12/255481849_268219471918936_4913651595211305236.jpg)'}
     backgroundSize={'cover'}
     overflow={'hidden'}
     >
@@ -36,10 +36,10 @@ const BrideOrGroom = () => {
     <Flex p={'5px 0px'} direction={'column'} justifyContent={'center'} alignItems={'center'}>
     <Text fontSize={['large','large','x-large','x-large']}>Person Name</Text>
     <Text fontSize={'medium'}>The Groom</Text>
-    <Flex gap={'10px'} p={'5px 0px'}>
-      <IconButton icon={<FaInstagram size={['50%']}/>} title='Instagram'  isRound="true" />
-      <IconButton icon={<FaFacebook size={['50%']}/>}  title='Facebook' isRound="true" />
-      <IconButton icon={<FaYoutube size={['50%']}/>} title='Youtube'  isRound="true" />
+    <Flex gap={'10px'} p={'5px 0px'} color={'black'}>
+      <IconButton icon={<FaInstagram color='red' size={['50%']}/>}  title='Instagram'  isRound="true" />
+      <IconButton icon={<FaFacebook color='blue' size={['50%']}/>}   title='Facebook' isRound="true" />
+      <IconButton icon={<FaYoutube color='red' size={['50%']}/>}  title='Youtube'  isRound="true" />
     </Flex>
     </Flex>
 

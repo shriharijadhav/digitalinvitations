@@ -1,5 +1,5 @@
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, Input, Select, Text, Textarea, useDisclosure, useToast } from '@chakra-ui/react'
+import { ArrowBackIcon, ArrowForwardIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import { Box, Button, Flex, FormControl, FormHelperText, FormLabel, IconButton, Input, Select, Text, Textarea, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { proceedToNextPage, saveEventAddress, saveEventAddress_Google_Map_link, saveEventCardLink, saveEventDate, savedEventName } from '../../store/actions'
@@ -14,6 +14,9 @@ import {
     ModalCloseButton,
   } from '@chakra-ui/react'
 import TimePickerForEvent from './TimePickerForEvent'
+import { Link } from '@chakra-ui/react'
+ 
+
 const C_Link = () => {
 
     const toast = useToast()
@@ -191,14 +194,22 @@ const C_Link = () => {
             </Flex>
 
             <Flex w={'100%'} direction={['column','column','row','row']} pt={'5px'} gap={['10px','10px','20px','20px']} justifyContent={'left'} alignItems={['start','start','start','start']}>
-                <Text w={['100%','100%','30%','30%']}>Google Map Location Link</Text>
-                 <Input
+            <Flex direction={'column'} w={['100%','100%','30%','30%']}>
+            <Text >Google Map Location Link</Text>
+            <Text >(Only embed link)</Text>
+            </Flex>
+            <Input
                     w={['90%','80%','60%','60%']}
                     rounded={'lg'}
                     onChange={(e)=>{dispatch(saveEventAddress_Google_Map_link(e.target.value))}}
                     placeholder="Enter the google map link for event address"
                     size="sm"
                 />
+            </Flex>
+            <Flex w={'100%'} p={'5px 0px'}>
+                <Link href='https://www.youtube.com/watch?v=R7m0e-7JCQk' title='Click for help' isExternal>
+                    Don't know how to get embed link? Click here<ExternalLinkIcon mx='2px' />
+                </Link>
             </Flex>
 
 

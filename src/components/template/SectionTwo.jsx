@@ -35,10 +35,10 @@ const SectionTwo = () => {
      
     
   return (
-    <Flex w={'100%'}  color={'black'} justifyContent={'center'} alignItems={'center'} minH={'90vh'} >
+    <Flex w={'100%'}  color={'black'} justifyContent={'center'} alignItems={'center'} minH={'80vh'} >
         <Flex w={['90%','90%','80%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} p={'40px 0px'}>
             <Flex w={'100%'} direction={['column','column','row','row']} justifyContent={'center'} p={'30px 0px'} gap={'30px'} alignItems={'center'}>
-                <Flex bg={'red'} w={'100%'}>
+                <Flex  w={'100%'}>
                     <BrideOrGroom/>
                 </Flex>
                 <Flex   w={'100%'} justifyContent={'center'} alignItems={'center'}>
@@ -50,11 +50,11 @@ const SectionTwo = () => {
                         <Text fontSize={['medium','large','larger','larger']}>26.09.2024</Text></Flex>
                     </Flex>
                 </Flex>
-                <Flex bg={'yellow'} w={'100%'}>
+                <Flex  w={'100%'}>
                     <BrideOrGroom/>
                 </Flex>
             </Flex>
-             <Flex w={'100%'} p={'20px 0px'} justifyContent={'center'} alignItems={'center'}>
+             <Flex w={'100%'}  justifyContent={'center'} alignItems={'center'}>
                 <CountdownTimer targetDateTime={targetDateTime} />
             </Flex>
         </Flex>
