@@ -202,13 +202,13 @@ const C_Link = () => {
                     w={['90%','80%','60%','60%']}
                     rounded={'lg'}
                     onChange={(e)=>{dispatch(saveEventAddress_Google_Map_link(e.target.value))}}
-                    placeholder="Enter the google map link for event address"
+                    placeholder="Enter the embed google map link for event address"
                     size="sm"
                 />
             </Flex>
             <Flex w={'100%'} p={'5px 0px'}>
                 <Link href='https://www.youtube.com/watch?v=R7m0e-7JCQk' title='Click for help' isExternal>
-                    Don't know how to get embed link? Click here<ExternalLinkIcon mx='2px' />
+                    Don't know how to get embed link? <Text as={'span'} color={'skyblue'}>Click here</Text><ExternalLinkIcon mx='2px' />
                 </Link>
             </Flex>
 

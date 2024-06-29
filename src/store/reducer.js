@@ -1,4 +1,4 @@
-import { C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR } from "./actionTypes";
+import { C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_DELETE_PHOTO_FROM_GALLERY, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_PHOTO_GALLERY, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, SAVE_USER_AUDIO_FILE, TOGGLE_REJECT_DEFAULT_AUDIO_FILES, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR, UPDATE_SELECTED_AUDIO_DETAILS, UPDATE_SELECTED_AUDIO_INDEX } from "./actionTypes";
 import { resetData_TempNewCardData } from "./reset_tempNewCardData";
 
 const initialState = {
@@ -363,6 +363,7 @@ const initialState = {
         cardStatus:'',
         paymentStatus:'',
         cardLink:'',
+        photoGallery:[],
         selectedTemplate: '',
         eventDetails:{
             eventName:'',
@@ -515,7 +516,56 @@ const initialState = {
                 id:8,
                 imgUrl:''
             }
-        ]
+        ],
+        defaultAudioFiles:[
+            {
+                name:'Sukh Kalale | Ved',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643325/digitalInvitations/defaultAudioFiles/sukha_kalale_isbt3w.webm'
+            },
+            {
+                name:'Mangalashtake',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643324/digitalInvitations/defaultAudioFiles/Mangalashtake_mrcoz5.mp3'
+            },
+            {
+                name:'Dhaga Dhaga | Daagdi Chaawl ',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643323/digitalInvitations/defaultAudioFiles/man_dhaga_dhaga_mrzzxv.webm'
+            },
+            {
+                name:'Shubhaarambh | Kai Po Che ',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643321/digitalInvitations/defaultAudioFiles/Shubhaarambh_gampxz.webm'
+            },
+            {
+                name:'Sajiri Gojiri | TTMM',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643320/digitalInvitations/defaultAudioFiles/sajiri_gojiri_g6vq74.webm'
+            },
+            {
+                name:'Navrai (Kajwa 2)',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643319/digitalInvitations/defaultAudioFiles/navrai_kajwa_2_kxrbhp.webm'
+            },
+            {
+                name:'Sar Sukhachi Shravani',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643318/digitalInvitations/defaultAudioFiles/sar_sukhachi_axpguv.webm'
+            },
+            {
+                name:'Tum Se | Shahid & Kriti',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643318/digitalInvitations/defaultAudioFiles/tum_se_zgcmcx.webm'
+            },
+            {
+                name:'Navrai Majhi | English Vinglish',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643317/digitalInvitations/defaultAudioFiles/navrai_majhi_ladachi_atgcag.webm'
+            },
+            {
+                name:'Aaj Sajeya x Madhanya x Mast Magan ',
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643331/digitalInvitations/defaultAudioFiles/Aaj_x_Sajeya_x_Madhanya_X_Mast_Magan_xwkraz.webm'
+            }
+        ],
+        rejectDefaultAudioFiles:false,
+        selectedAudioIndex:0,
+        selectedAudioDetails: {
+            name:'Sukh Kalale | Ved',
+            audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643325/digitalInvitations/defaultAudioFiles/sukha_kalale_isbt3w.webm'
+        },
+        userAudioFile:null,
     },
     tempEditExistingCardData:{
 
@@ -1016,6 +1066,41 @@ export const reducer = (state=initialState,action)=>{
             return{
                 ...state,tempNewCardData:{...state.tempNewCardData,galleryDetails:action.payload}
             }
+        break;
+        case C_SAVE_PHOTO_GALLERY:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,photoGallery:[...state.tempNewCardData.photoGallery,...action.payload]}
+            }
+        break;
+        case C_DELETE_PHOTO_FROM_GALLERY:
+            const tempPhotoGallery = state.tempNewCardData.photoGallery.filter((item,index) => index !== Number(action.payload))
+             return{
+                ...state,tempNewCardData:{...state.tempNewCardData,photoGallery:tempPhotoGallery}
+            }
+        break;
+
+        case TOGGLE_REJECT_DEFAULT_AUDIO_FILES:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,rejectDefaultAudioFiles:!state.tempNewCardData.rejectDefaultAudioFiles}
+            }
+
+        break;
+        case UPDATE_SELECTED_AUDIO_INDEX:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,selectedAudioIndex:action.payload}
+
+            }
+        break;
+        case UPDATE_SELECTED_AUDIO_DETAILS:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,selectedAudioDetails:action.payload}
+            }
+        break;
+        case SAVE_USER_AUDIO_FILE:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,userAudioFile:action.payload}
+            }
+
         break;
  
  

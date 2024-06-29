@@ -57,14 +57,11 @@ const C_HaldiDetails = () => {
     }
 
     const linkPage_handleNext = () => {
-        if(currentPage<8){
+         
         
         dispatch(proceedToNextPage())
 
-        }
-        else{
-            customToast('You have reached the end of form')
-        }
+         
     }
 
     const linkPage_handlePrevious = () => {

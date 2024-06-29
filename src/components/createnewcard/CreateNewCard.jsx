@@ -12,6 +12,8 @@ import C_EngagementDetails from './C_EngagementDetails'
 import C_SangeetDetails from './C_SangeetDetails'
 import C_HaldiDetails from './C_HaldiDetails'
 import C_ParentDetails from './C_ParentDetails'
+import C_PhotoGallery from './C_PhotoGallery'
+import C_AudioFile from './C_AudioFile'
 
 const CreateNewCard = () => {
 
@@ -31,13 +33,15 @@ const CreateNewCard = () => {
             return <C_ParentDetails/>
         }
         else if(currentPage === 5){
-            return <C_CoverImages/>
+            return <C_AudioFile/>
         }else if(currentPage === 6){
             return <C_EngagementDetails/>
         }else if(currentPage === 7){
             return <C_SangeetDetails/>
         }else if(currentPage === 8){
             return <C_HaldiDetails/>
+        }else if(currentPage === 9){
+            return <C_PhotoGallery/>
         }
     }
      

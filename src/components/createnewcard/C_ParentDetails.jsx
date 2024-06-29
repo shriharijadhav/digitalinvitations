@@ -17,33 +17,9 @@ import ImageCrop from './ImageCrop'
 
   const C_ParentDetails = () => {
 
-    const data =useSelector(store=>store.tempNewCardData)
-     const formData = new FormData()
+    
 
-    if(data.brideDetails.brideActualImage){
-        formData.append('brideActualImage', data.brideDetails.brideActualImage);
-    }
-    if(data.groomDetails.groomActualImage){
-        formData.append('groomActualImage', data.groomDetails.groomActualImage);
-    }
-    if(data.brideDetails.parentDetails.motherDetails.brideMotherActualImage){
-        formData.append('brideMotherActualImage', data.brideDetails.parentDetails.motherDetails.brideMotherActualImage);
-    }
-    if(data.brideDetails.parentDetails.fatherDetails.brideFatherActualImage){
-        formData.append('brideFatherActualImage', data.brideDetails.parentDetails.fatherDetails.brideFatherActualImage);
-    }
-    if(data.groomDetails.parentDetails.motherDetails.groomMotherActualImage){
-        formData.append('groomMotherActualImage', data.groomDetails.parentDetails.motherDetails.groomMotherActualImage);
-    }
-    if(data.groomDetails.parentDetails.fatherDetails.groomFatherActualImage){
-        formData.append('groomFatherActualImage', data.groomDetails.parentDetails.fatherDetails.groomFatherActualImage);
-    }
-     
-    formData.append('allData',JSON.stringify(data));
-
-    // for (const [key, value] of formData.entries()) {
-    //     console.log(`${key}:`, value);
-    // }
+    
     
     const addParentDetails = useSelector(store=>store.tempNewCardData.eventDetails.addParentDetails)
     const b_parentDetails  = useSelector((store) => store.tempNewCardData.brideDetails.parentDetails) 
@@ -489,7 +465,6 @@ import ImageCrop from './ImageCrop'
            </Button>
             <Text pr={'20px'} display={['none','none','flex','flex']}>Step {currentPage}/{totalPages}</Text>
            <Button fontSize={'sm'} isDisabled={currentPage<=totalPages? false:true}   display={'flex'} gap={'5px'} alignItems={'center'} justifyContent={'center'}
-        //    onClick={()=>{dispatch(makeApiCallToSaveNewCard(formData))}}
            onClick={linkPage_handleNext}
            >
             Next
