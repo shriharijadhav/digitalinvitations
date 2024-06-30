@@ -308,7 +308,7 @@ import {
         <Divider/>
         <Flex w={'100%'} p={'15px 0px'} display={rejectDefaultAudioFiles?'flex':'none'}>
                 <FormControl >
-                <Link _hover={{textDecoration:'none'}}  href='https://youtubemusicplayer.vercel.app/' title='Click for help' isExternal>
+                <Link _hover={{textDecoration:'none'}}  href='https://y2mate.nu/O3GB/' title='Click for help' isExternal>
                 <Text _hover={{textDecoration:'none'}} > Download any Youtube song's audio file. <Text as={'span'} color={'skyblue'} textUnderlineOffset={'5px'} textDecoration={'underline wavy'}>Click here<ExternalLinkIcon mx='2px' /></Text></Text>
                 </Link>
                 <FormHelperText display={'flex'}  alignItems={'baseline'} gap={'5px'}>
