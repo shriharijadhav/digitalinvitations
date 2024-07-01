@@ -166,7 +166,7 @@ import ImageCrop from './ImageCrop'
         const file = event.target.files[0]; // Get the selected file
         if (file) {
             // Check if file size is less than or equal to 2MB (2 * 1024 * 1024 bytes)
-            if (file.size <= 2 * 1024 * 1024) {
+            if (file.size <= 8 * 1024 * 1024) {
                 // File size is within limit, you can proceed with handling the file
                 if (event.target.name === 'brideMotherImage') {
                     dispatch(saveBrideParentActualImage(event.target.files[0],'brideMotherImage'))                    
@@ -185,7 +185,7 @@ import ImageCrop from './ImageCrop'
 
             } else {
                 // File size exceeds 2MB, show alert to the user
-                alert('File size exceeds 2MB. Please select a smaller file.');
+                alert('File size exceeds 8MB. Please select a smaller file.');
                 // Reset the file input (optional)
                 event.target.value = null;
                 
@@ -272,7 +272,7 @@ import ImageCrop from './ImageCrop'
                             <Text>Select an image with a minimum resolution of 500 x 500 pixels.</Text>
                             </ListItem>
                             <ListItem>
-                            <Text>Upload image upto 2mb size only.</Text>
+                            <Text>Upload image upto 8mb size only.</Text>
                             </ListItem>
                             <ListItem>
                             <Text>Ensure the person is positioned at the center of the image.</Text>

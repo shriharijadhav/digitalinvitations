@@ -14,6 +14,8 @@ import C_HaldiDetails from './C_HaldiDetails'
 import C_ParentDetails from './C_ParentDetails'
 import C_PhotoGallery from './C_PhotoGallery'
 import C_AudioFile from './C_AudioFile'
+import FamilyMembersForm from './C_UpdatedParentDetails'
+import C_UpdatedParentDetails from './C_UpdatedParentDetails'
 
 const CreateNewCard = () => {
 
@@ -42,6 +44,9 @@ const CreateNewCard = () => {
             return <C_HaldiDetails/>
         }else if(currentPage === 9){
             return <C_PhotoGallery/>
+        }else if(currentPage === 0){
+            return <C_UpdatedParentDetails/>
+
         }
     }
      

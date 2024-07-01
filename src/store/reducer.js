@@ -1,4 +1,4 @@
-import { C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_DELETE_PHOTO_FROM_GALLERY, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_PHOTO_GALLERY, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, SAVE_USER_AUDIO_FILE, TOGGLE_REJECT_DEFAULT_AUDIO_FILES, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR, UPDATE_SELECTED_AUDIO_DETAILS, UPDATE_SELECTED_AUDIO_INDEX } from "./actionTypes";
+import { C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_FAMILY, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_DELETE_PHOTO_FROM_GALLERY, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_FAMILY_ARRAY, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_PHOTO_GALLERY, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_FAMILY_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, SAVE_USER_AUDIO_FILE, TOGGLE_REJECT_DEFAULT_AUDIO_FILES, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR, UPDATE_SELECTED_AUDIO_DETAILS, UPDATE_SELECTED_AUDIO_INDEX } from "./actionTypes";
 import { resetData_TempNewCardData } from "./reset_tempNewCardData";
 
 const initialState = {
@@ -356,7 +356,7 @@ const initialState = {
             }
         }
     ],
-    currentPage:1,
+    currentPage:0,
     totalPages:10,
     tempNewCardData: {
         cardId:1,// created by appWrite
@@ -381,6 +381,9 @@ const initialState = {
             addParentDetails:false,
             priorityBetweenBrideAndGroom:'bride',
             priorityBetweenParents:'brideParents',
+            addFamilyDetails:false,
+            priorityBetweenFamily:'brideFamily',
+            familyDetailsArray:[],
             subEvents:{
                 engagementDetails:{
                     engagementName:'Engagement',
@@ -911,6 +914,18 @@ export const reducer = (state=initialState,action)=>{
             }
 
         break;
+        case C_TOGGLE_ADD_FAMILY_DETAILS:
+            if(action.payload){
+                return{
+                    ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,addFamilyDetails:action.payload}}
+                }
+            }else{
+                return{
+                    ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,addFamilyDetails:action.payload}}
+                }
+            }
+
+        break;
 
         case C_SAVE_BRIDE_PARENT_DETAILS:
             if (action.fieldName === 'brideMotherFirstName') {
@@ -1044,6 +1059,17 @@ export const reducer = (state=initialState,action)=>{
                 ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,priorityBetweenParents:action.payload}}
             }
 
+        break;
+        case C_CHANGE_PRIORITY_BETWEEN_FAMILY:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,priorityBetweenFamily:action.payload}}
+            }
+
+        break;
+        case C_SAVE_FAMILY_ARRAY:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:action.payload}}
+            }
         break;
 
         case C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM:
