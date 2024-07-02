@@ -11,26 +11,34 @@ import {
   ModalBody,
   IconButton,
   Button,
-  useDisclosure
+  useDisclosure,
+  Flex
 } from '@chakra-ui/react';
 import { ArrowLeftIcon, ArrowRightIcon, ViewIcon } from '@chakra-ui/icons';
 import { BsArrowsFullscreen } from "react-icons/bs";
 import { BsFullscreen } from "react-icons/bs";
+import { useSelector } from 'react-redux';
 
 
-const images = [
-  'https://images.pexels.com/photos/4091280/pexels-photo-4091280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  'https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  'https://images.pexels.com/photos/3397026/pexels-photo-3397026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  'https://images.pexels.com/photos/4091280/pexels-photo-4091280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  'https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  'https://images.pexels.com/photos/3397026/pexels-photo-3397026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-  // Add your image URLs here
-];
+// const images = [
+//   'https://images.pexels.com/photos/4091280/pexels-photo-4091280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/3397026/pexels-photo-3397026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/4091280/pexels-photo-4091280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   'https://images.pexels.com/photos/3397026/pexels-photo-3397026.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+//   // Add your image URLs here
+// ];
+
+// const images
+
 
 const Gallery = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    const liveCardData  = useSelector((store)=>store.liveCardData)
+    const images = liveCardData.eventDetails.photoGallery.photoGallery
   
     const openImage = (index) => {
       setCurrentIndex(index);
@@ -46,8 +54,8 @@ const Gallery = () => {
     };
   
     return (
-      <Box>
-        <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={6}>
+      <Flex m={'auto'} w={'80%'} justifyContent={'center'} alignItems={'center'}>
+        <Grid m={'auto'} w={'100%'} templateColumns={["repeat(1,1fr)","repeat(2,1fr)","repeat(2,1fr)","repeat(3,1fr)"]} gap={6}>
           {images.map((src, index) => (
             <Box
               key={index}
@@ -55,11 +63,13 @@ const Gallery = () => {
               overflow={'hidden'}
               position="relative"
               cursor="pointer"
+              height={['170px','200px','250px','300px']}
               transition={'all ease-in-out 0.5'}
+              backgroundImage={`url(${src})`}
+              backgroundSize={'cover'}
               onClick={() => openImage(index)}
               _hover={{ opacity: 0.8 ,shadow:' black 0px 5px 15px',transform:'scale(1.02)'}}
             >
-              <Image src={src} alt={`Image ${index + 1}`} />
               <Box
                 position="absolute"
                 top={0}
@@ -109,7 +119,7 @@ const Gallery = () => {
             </ModalBody>
           </ModalContent>
         </Modal>
-      </Box>
+      </Flex>
     );
   };
   

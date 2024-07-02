@@ -2,8 +2,38 @@ import { Flex, IconButton, Text } from '@chakra-ui/react';
 import React from 'react';
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import '../../App.css'
+import { useSelector } from 'react-redux';
 
-const FlipBrideOrGroom = () => {
+const FlipBrideOrGroom = ({singleMember}) => {
+
+  const eventDate = useSelector((store)=>store.liveCardData.eventDetails.eventFromDB.eventDate)
+  const eventTime = useSelector((store)=>store.liveCardData.eventDetails.eventFromDB.eventTime)
+  const formatDate = (dateString) => {
+    const months = {
+      Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April',
+      May: 'May', Jun: 'June', Jul: 'July', Aug: 'August',
+      Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December'
+    };
+  
+    // Split the dateString into parts
+    // const parts = dateString.split(' | ')[1].split(' ');
+    // const month = months[parts[0]];
+    // const day = parts[1].replace(',', '');
+    // const year = parts[2];
+  
+    const parts =dateString.split(' | ')[1].split(' ')
+    const month = months[parts[0]]
+    const day = (parts[1].replace(',', '')).padStart(2,'0')
+    const year = parts[2]
+
+    return `${day} ${month}, ${year}`
+   
+    // Return the formatted date
+    // return `${day} ${month}, ${year}`;
+}
+
+
+const modifiedDate = formatDate(eventDate)
   return (
     <Flex
       w={'100%'}
@@ -11,13 +41,14 @@ const FlipBrideOrGroom = () => {
       justifyContent={'center'}
       alignItems={'center'}
       gap={'20px'}
+      pb={'20px'}
     >
       <Flex
         className="flip-container"
         position={'relative'}
         zIndex={20}
-        w={['210px', '230px', '250px', '280px']}
-        h={['210px', '230px', '250px', '280px']}
+        w={['200px', '220px', '250px', '280px']}
+        h={['200px', '220px', '250px', '280px']}
       >
         <Flex className="flipper">
           <Flex className="front" position={'relative'} zIndex={20} w={'100%'} h={'100%'}>
@@ -54,7 +85,7 @@ const FlipBrideOrGroom = () => {
               zIndex={20}
               outlineOffset={'-8px'}
               borderRadius={'full'}
-              backgroundImage={`url(https://image.wedmegood.com/resized-nw/1300X/wp-content/uploads/2021/12/255481849_268219471918936_4913651595211305236.jpg)`}
+              backgroundImage={`url(${singleMember.actualImageUrl})`}
               backgroundSize={'cover'}
               overflow={'hidden'}
             >
@@ -105,13 +136,17 @@ const FlipBrideOrGroom = () => {
             gap={'10px'}
             p={'10px'}
           >
-            <Text fontSize={'xl'}>Hi there!</Text>
-            <Text fontSize={'lg'}>Join us to celebrate our love and new beginnings.</Text>
+             <Text fontSize={'lg'}>Join us for a day of love, laughter, and new beginnings.</Text>
+            <Text fontSize={'lg'} pt={'5px'}>{modifiedDate} | {eventTime}</Text>
+            <Text fontSize={'lg'} pb={'5px'}></Text>
+            <Text fontSize={'lg'}>Please save the Date!</Text>
+
           </Flex>
         </Flex>
       </Flex>
       <Flex p={'5px 0px'} direction={'column'} justifyContent={'center'} alignItems={'center'}>
-        <Text fontSize={['large', 'large', 'x-large', 'x-large']}>Person Name</Text>
+      <Text fontSize={['large', 'large', 'large', 'x-large']} fontWeight={'500'}>{singleMember.firstName} {singleMember.lastName}</Text>
+      <Text fontSize={['medium', 'medium', 'medium', 'large']}>{singleMember.relationship}</Text>
         
       </Flex>
     </Flex>

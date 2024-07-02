@@ -115,3 +115,34 @@ body {
 ::-ms-scrollbar-thumb:hover {
   background: #555; /* Scrollbar color when hovered */
 }
+
+
+.responsive-map {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+}
+
+@media (max-width: 576px) {
+  .responsive-map {
+    height: 250px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .responsive-map {
+    height: 350px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .responsive-map {
+    height: 400px;
+  }
+}
+
+@media (min-width: 993px) {
+  .responsive-map {
+    height: 420px;
+  }
+}

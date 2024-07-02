@@ -1,20 +1,27 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Grid, GridItem, Text } from '@chakra-ui/react'
 import React from 'react'
 import FlipBrideOrGroom from './FlipBrideOrGroom'
 
-const RepeatParents = () => {
+const RepeatParents = ({memberArray,side}) => {
   return (
-    <Flex w={'100%'} direction={['column','column','row','row']} justifyContent={'center'} p={'30px 0px'} gap={'20px'}  alignItems={'center'}>
-    <Flex  w={'100%'}>
-        <FlipBrideOrGroom/>
+    <Flex w={'100%'} direction={'column'} justifyContent={'center'} p={'20px 0px'} gap={'20px'}  alignItems={'center'}>
+    <Flex>        
+    <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>{side}'s Family</Text>
     </Flex>
-    <Flex   w={'50%'} justifyContent={'center'} alignItems={'center'}>
-        <Flex direction={'column'} w={'90%'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
-        <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>Bride's parent</Text>
-        </Flex>
-    </Flex>
-    <Flex  w={'100%'}>
-        <FlipBrideOrGroom/>
+    <Flex  w={'100%'} direction={['column','column','row','row']} justifyContent={'center'} p={'20px 0px'} gap={'20px'}  alignItems={'center'}>
+      {
+        memberArray.length >0 && (
+          <Grid m={'auto'} w={'100%'} templateColumns={["repeat(1,1fr)","repeat(2,1fr)","repeat(2,1fr)","repeat(auto,1fr)"]}>
+            {
+              memberArray.map((item,index)=>(
+                <GridItem key={index}>
+                  <FlipBrideOrGroom singleMember={item} />
+                </GridItem>
+              ))            }
+
+        </Grid>
+        )
+      }
     </Flex>
 </Flex>        
 

@@ -38,10 +38,41 @@ const SectionTwo = () => {
       };
     
     const modifiedDate = formatDateString(eventDate) || '27.12.2015';
-
-    const eventRawDate = liveCardData?.eventDetails?.eventFromDB?.raw_eventDate
     
-    const dateFromDB = eventRawDate.split(`"`)[1]
+    
+    const convertDateFormat = (dateString) => {
+        // Define a map for month abbreviations to numbers
+        const monthMap = {
+          Jan: '01',
+          Feb: '02',
+          Mar: '03',
+          Apr: '04',
+          May: '05',
+          Jun: '06',
+          Jul: '07',
+          Aug: '08',
+          Sep: '09',
+          Oct: '10',
+          Nov: '11',
+          Dec: '12'
+        };
+      
+        // Extract the parts of the date string
+        const [, monthStr, day, year] = dateString.split(/[\s|,]+/);
+      
+        // Convert month abbreviation to number
+        const month = monthMap[monthStr];
+      
+        // Ensure day is two digits
+        const dayFormatted = day.padStart(2, '0');
+      
+        // Format the date as YYYY-MM-DD
+        return `${year}-${month}-${dayFormatted}`;
+    };
+
+    
+    
+    const dateFromDB = convertDateFormat(eventDate)
     const targetDate = dateFromDB.split('T')[0];
     const targetTime = "12:32 PM";
 
@@ -72,7 +103,7 @@ const SectionTwo = () => {
   return (
     <Flex w={'100%'}  color={'black'} justifyContent={'center'} alignItems={'center'} minH={'80vh'} >
         <Flex w={['90%','90%','80%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} p={'40px 0px'}>
-            <Flex w={'100%'} direction={priorityBetweenBrideAndGroom === 'bride'?['column','column','row','row']:['column','column','row-reverse','row-reverse']} justifyContent={'center'} p={'30px 0px'} gap={'30px'} alignItems={'center'}>
+            <Flex w={'100%'} direction={priorityBetweenBrideAndGroom === 'bride'?['column','column','row','row']:['column-reverse','column-reverse','row-reverse','row-reverse']} justifyContent={'center'} p={'30px 0px'} gap={'30px'} alignItems={'center'}>
                 <Flex  w={'100%'}>
                     <BrideOrGroom person={'Bride'} fullName={`${brideFirstName} ${brideLastName}`} socialLinkArray={brideSocialLinkArray} imageUrl={brideImageLink}/>
                 </Flex>
@@ -80,7 +111,7 @@ const SectionTwo = () => {
                     <Flex direction={'column'} w={'90%'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
                     <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>Save the Date</Text>
                         <Flex direction={'column'} alignItems={'center'} justifyContent={'center'}>
-                        <Text  fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
+                        <Text  fontWeight={'500'} fontSize={['large','x-large','large','x-large']}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
                         <Text fontSize={['medium','large','larger','larger']}>are getting married on</Text>
                         <Text fontSize={['medium','large','larger','larger']}>{modifiedDate}</Text></Flex>
                     </Flex>

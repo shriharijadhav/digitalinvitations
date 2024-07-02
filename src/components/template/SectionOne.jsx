@@ -56,7 +56,7 @@ const SectionOne = () => {
                       </Flex>
 
 
-                      <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
+                      <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','large','x-large','x-large']} p={'0px 5px'}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
                       <Flex direction={'column'} justifyContent={'center'} alignItems={'center'}>
                         <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>Save the Date</Text>
                         <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>{modifiedDate}</Text>

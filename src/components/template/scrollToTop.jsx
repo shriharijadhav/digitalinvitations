@@ -32,14 +32,14 @@ const ScrollToTopButton = () => {
       {isVisible && (
         <Button
           position="fixed"
-          bottom="50px"
+          bottom="40px"
           right="20px"
           zIndex="1000"
           onClick={scrollToTop}
           colorScheme="pink"
           borderRadius="full"
           p="10px"
-          size="lg"
+          size={["md"]}
           title='Go to Top'
         >
           <Icon as={FaArrowUp} />

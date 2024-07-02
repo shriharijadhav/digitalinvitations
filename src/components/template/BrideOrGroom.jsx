@@ -37,8 +37,8 @@ const BrideOrGroom = ({fullName,person,socialLinkArray,imageUrl=`https://api.dic
     </Flex>
     </Flex>
     <Flex p={'5px 0px'} direction={'column'} justifyContent={'center'} alignItems={'center'}>
-    <Text fontSize={['large','large','x-large','x-large']}>{fullName}</Text>
-    <Text fontSize={'medium'}>The {person}</Text>
+    <Text fontSize={['large','large','x-large','xx-large']} fontWeight={'500'}>{fullName}</Text>
+    <Text  fontSize={['large','large','large','large']}>The {person}</Text>
     <Flex gap={'10px'} p={'5px 0px'} color={'black'}>
      
           <IconButton
