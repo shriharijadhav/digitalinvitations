@@ -1,4 +1,4 @@
-import { C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_FAMILY, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_DELETE_PHOTO_FROM_GALLERY, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_FAMILY_ARRAY, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_PHOTO_GALLERY, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_FAMILY_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, SAVE_USER_AUDIO_FILE, TOGGLE_REJECT_DEFAULT_AUDIO_FILES, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR, UPDATE_SELECTED_AUDIO_DETAILS, UPDATE_SELECTED_AUDIO_INDEX } from "./actionTypes";
+import { C_ADD_NEW_FAMILY_MEMBER, C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_FAMILY, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_DELETE_FAMILY_MEMBER_IMAGE, C_DELETE_MEMBER_BY_INDEX, C_DELETE_MEMBER_DETAILS_BY_INDEX, C_DELETE_PHOTO_FROM_GALLERY, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_FAMILY_ARRAY, C_SAVE_FAMILY_MEMBER_IMAGE, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_PHOTO_GALLERY, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_FAMILY_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, HANDLE_CHANGE_FOR_MEMBER_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, SAVE_USER_AUDIO_FILE, TOGGLE_REJECT_DEFAULT_AUDIO_FILES, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR, UPDATE_SELECTED_AUDIO_DETAILS, UPDATE_SELECTED_AUDIO_INDEX } from "./actionTypes";
 import { resetData_TempNewCardData } from "./reset_tempNewCardData";
 
 const initialState = {
@@ -356,7 +356,7 @@ const initialState = {
             }
         }
     ],
-    currentPage:0,
+    currentPage:1,
     totalPages:10,
     tempNewCardData: {
         cardId:1,// created by appWrite
@@ -1067,6 +1067,7 @@ export const reducer = (state=initialState,action)=>{
 
         break;
         case C_SAVE_FAMILY_ARRAY:
+            console.log(action.payload)
             return{
                 ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:action.payload}}
             }
@@ -1127,6 +1128,73 @@ export const reducer = (state=initialState,action)=>{
                 ...state,tempNewCardData:{...state.tempNewCardData,userAudioFile:action.payload}
             }
 
+        break;
+        case C_DELETE_MEMBER_BY_INDEX:
+
+        let tempArrayFamily = state.tempNewCardData.eventDetails.familyDetailsArray.filter((item,index)=> index !== action.payload)
+        return{
+            ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:tempArrayFamily}}
+        }
+
+        break;
+
+        case C_SAVE_FAMILY_MEMBER_IMAGE:
+
+        let tempArrayFamily_2 = state.tempNewCardData.eventDetails.familyDetailsArray.map((item,index)=>{
+            if (index === Number(action.index)) {
+                item.actualImage = action.payload
+                return item
+            } else {
+                return item
+            }
+        })
+        return{
+            ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:tempArrayFamily_2}}
+        }
+
+        break;
+
+        case C_ADD_NEW_FAMILY_MEMBER:
+            return{
+                ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:[...state.tempNewCardData.eventDetails.familyDetailsArray,action.payload]}}
+            }
+        break;
+
+        case C_DELETE_FAMILY_MEMBER_IMAGE:
+        let tempArrayFamily_3 = state.tempNewCardData.eventDetails.familyDetailsArray.map((item,index)=>{
+            if (index === Number(action.payload)) {
+                item.actualImage = null
+                return item
+            } else {
+                return item
+            }
+        })
+
+        return{
+            ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:tempArrayFamily_3}}
+        }
+
+        break;
+        case C_DELETE_MEMBER_DETAILS_BY_INDEX:
+        let tempMemberArray = state.tempNewCardData.eventDetails.familyDetailsArray.filter((item,index)=> index !== Number(action.payload))
+        return{
+            ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:tempMemberArray}}
+        }
+        break;
+
+
+        case HANDLE_CHANGE_FOR_MEMBER_DETAILS:
+        let updatedMemberArray = state.tempNewCardData.eventDetails.familyDetailsArray.map((item,index)=>{
+            if (index === Number(action.index)) {
+                let tempItem1 = {...item,[action.fieldName]:action.payload}
+                return tempItem1
+            } else {
+                return item
+            }
+        })
+        return{
+            ...state,tempNewCardData:{...state.tempNewCardData,eventDetails:{...state.tempNewCardData.eventDetails,familyDetailsArray:updatedMemberArray}}
+        }
         break;
  
  

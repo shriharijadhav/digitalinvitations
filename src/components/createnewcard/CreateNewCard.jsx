@@ -32,7 +32,7 @@ const CreateNewCard = () => {
             return <C_BrideAndGroomDetails/>
         }
         else if(currentPage === 4){
-            return <C_ParentDetails/>
+            return <C_UpdatedParentDetails/>
         }
         else if(currentPage === 5){
             return <C_AudioFile/>
@@ -44,9 +44,6 @@ const CreateNewCard = () => {
             return <C_HaldiDetails/>
         }else if(currentPage === 9){
             return <C_PhotoGallery/>
-        }else if(currentPage === 0){
-            return <C_UpdatedParentDetails/>
-
         }
     }
      

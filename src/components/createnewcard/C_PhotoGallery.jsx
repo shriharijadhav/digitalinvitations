@@ -26,7 +26,7 @@ import ImageCrop from './ImageCrop'
 
 
     // data to send to the server
-    const data =useSelector(store=>store.tempNewCardData)
+    const data = useSelector(store=>store.tempNewCardData)
      const formData = new FormData()
 
     if(data.brideDetails.brideActualImage){
@@ -35,21 +35,15 @@ import ImageCrop from './ImageCrop'
     if(data.groomDetails.groomActualImage){
         formData.append('groomActualImage', data.groomDetails.groomActualImage);
     }
-    if(data.brideDetails.parentDetails.motherDetails.brideMotherActualImage){
-        formData.append('brideMotherActualImage', data.brideDetails.parentDetails.motherDetails.brideMotherActualImage);
-    }
-    if(data.brideDetails.parentDetails.fatherDetails.brideFatherActualImage){
-        formData.append('brideFatherActualImage', data.brideDetails.parentDetails.fatherDetails.brideFatherActualImage);
-    }
-    if(data.groomDetails.parentDetails.motherDetails.groomMotherActualImage){
-        formData.append('groomMotherActualImage', data.groomDetails.parentDetails.motherDetails.groomMotherActualImage);
-    }
-    if(data.groomDetails.parentDetails.fatherDetails.groomFatherActualImage){
-        formData.append('groomFatherActualImage', data.groomDetails.parentDetails.fatherDetails.groomFatherActualImage);
-    }
+    
     if(data.userAudioFile){
         formData.append('userAudioFile',data.userAudioFile)
+    }
 
+    if(data.eventDetails.familyDetailsArray.length >0){
+      data.eventDetails.familyDetailsArray.forEach((member, index) => {
+        formData.append(`familyMember_[${index}]`, member.actualImage);
+    });
     }
      
     formData.append('allData',JSON.stringify(data));

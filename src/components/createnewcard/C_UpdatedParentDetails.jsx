@@ -3,7 +3,7 @@ import { Box, Button, Checkbox, Divider, Flex, FormControl, FormHelperText, Form
 import React, { useRef, useState } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { changePriorityBetweenFamily, clearParentDetails, deleteActualImage_brideParent, deleteActualImage_groomParent, previousPage, proceedToNextPage, toggleAddFamilyDetails } from '../../store/actions'
+import { addNewFamilyMember, changePriorityBetweenFamily, clearParentDetails, deleteActualImage_brideParent, deleteActualImage_groomParent, deleteFamilyMemberImage, deleteMemberByIndex, deleteMemberDetailsByIndex, handleChangeForMemberDetails, previousPage, proceedToNextPage, saveFamilyArray, saveFamilyMemberImage, toggleAddFamilyDetails } from '../../store/actions'
 import {
     Accordion,
     AccordionItem,
@@ -15,6 +15,7 @@ import {
 const C_UpdatedParentDetails = () => {
     const addFamilyDetails = useSelector(store => store.tempNewCardData.eventDetails.addFamilyDetails)
     const priorityBetweenFamily = useSelector((store) => store.tempNewCardData.eventDetails.priorityBetweenFamily)
+    const familyDetailsArray = useSelector(store => store.tempNewCardData.eventDetails.familyDetailsArray)
     const dispatch = useDispatch()
     const currentPage = useSelector((store) => store.currentPage)
     const totalPages = useSelector((store) => store.totalPages)
@@ -33,7 +34,7 @@ const C_UpdatedParentDetails = () => {
 
     const checkBeforeAddingNewMember = () => {
         let fieldsMissing = false;
-        familyMembers.forEach((item) => {
+        familyDetailsArray.forEach((item) => {
             if (!item.firstName || !item.lastName || !item.relationship || !item.side || !item.actualImage) {
                 fieldsMissing = true;
             }
@@ -45,32 +46,26 @@ const C_UpdatedParentDetails = () => {
 
     const handleChange = (index, e) => {
         const { name, value, files } = e.target;
-        const updatedFamilyMembers = [...familyMembers];
         if (files) {
-            updatedFamilyMembers[index] = { ...updatedFamilyMembers[index], actualImage: files[0] };
+             dispatch(saveFamilyMemberImage(index,files[0]))
         } else {
-            updatedFamilyMembers[index] = { ...updatedFamilyMembers[index], [name]: value };
-        }
-        setFamilyMembers(updatedFamilyMembers);
-    };
+            dispatch(handleChangeForMemberDetails(index,name,value));
+         }
+     };
 
-    const handleDeleteImage = (index) => {
-        const updatedFamilyMembers = [...familyMembers];
-        updatedFamilyMembers[index] = { ...updatedFamilyMembers[index], actualImage: null };
-        setFamilyMembers(updatedFamilyMembers);
-        imageRef.current.value = null;
-    };
+    
 
     const addFamilyMember = () => {
-        if (familyMembers.length === 0 || !checkBeforeAddingNewMember()) {
-            setFamilyMembers([...familyMembers, currentFamilyMember]);
-            setCurrentFamilyMember({
+        if (familyDetailsArray.length === 0 || !checkBeforeAddingNewMember()) {
+            
+            dispatch(addNewFamilyMember({
                 firstName: '',
                 lastName: '',
                 relationship: '',
                 side: '',
                 actualImage: null,
-            });
+            }))
+
             if (imageRef.current) {
                 imageRef.current.value = null;
             }
@@ -85,14 +80,19 @@ const C_UpdatedParentDetails = () => {
         }
     };
 
-    const deleteCurrentMember = (memberIndex) => {
-        let tempArray = familyMembers.filter((item,index)=> index !== memberIndex)
-        setFamilyMembers(tempArray)
+    const customToast = (message)=>{
+        toast({
+            title: `${message}`,
+            status: 'warning',
+            position: 'bottom-center',
+            isClosable: true,
+          })
     }
+
+    
     const toggle = () => {
         if (addFamilyDetails) {
             dispatch(toggleAddFamilyDetails(false))
-            setFamilyMembers([])
         } else {
             dispatch(toggleAddFamilyDetails(true))
         }
@@ -184,14 +184,14 @@ const C_UpdatedParentDetails = () => {
 
                   
 
-                    {familyMembers.map((member, index) => (
+                    {familyDetailsArray.map((member, index) => (
                         <Flex key={index} border="1px solid grey" w="100%" gap="10px" direction="column" p="10px" borderRadius="10px">
                             <Flex w="100%" direction="column" gap="20px" justifyContent="left" alignItems="start">
                                 <Flex w="100%" direction="column" gap="10px">
                                     <Flex justifyContent={'space-between'} alignItems={'center'}>
                                         <Text fontSize={'large'} fontWeight={'500'}>Member Details</Text>
                                         <IconButton colorScheme='red' icon={<DeleteIcon/>}
-                                         onClick={()=>{deleteCurrentMember(index)}}
+                                         onClick={()=>{dispatch(deleteMemberDetailsByIndex(index))}}
                                         />
                                     </Flex>
                                     <Divider/>
@@ -211,20 +211,11 @@ const C_UpdatedParentDetails = () => {
                                             type="text"
                                             name="lastName"
                                             placeholder="Enter last name"
-                                            value={member.lastName}
+                                            value={member.lastName || ''}
                                             onChange={(e) => handleChange(index, e)}
                                         />
                                     </FormControl>
-                                    <FormControl isRequired>
-                                        <FormLabel>Relationship</FormLabel>
-                                        <Input
-                                            type="text"
-                                            name="relationship"
-                                            placeholder="Enter relationship"
-                                            value={member.relationship}
-                                            onChange={(e) => handleChange(index, e)}
-                                        />
-                                    </FormControl>
+                                   
                                     <FormControl isRequired>
                                         <FormLabel>Side</FormLabel>
                                         <Select name="side" value={member.side} onChange={(e) => handleChange(index, e)}>
@@ -233,6 +224,16 @@ const C_UpdatedParentDetails = () => {
                                             <option value="groom">Groom's Family</option>
                                         </Select>
                                     </FormControl>
+                                    <FormControl isRequired pt={'5px'}>
+                                    <FormLabel>{member.side? `Relationship with ${member.side}`:`Relationship`}</FormLabel>
+                                    <Input
+                                        type="text"
+                                        name="relationship"
+                                        placeholder={member.side? `Enter relationship with ${member.side}` :"Enter relationship"}
+                                        value={member.relationship || ''}
+                                        onChange={(e) => {member.side ?handleChange(index, e):customToast('Please select side first')}}
+                                    />
+                                </FormControl>
                                     <FormControl isRequired>
                                         <FormLabel p="5px 0px">Upload Family Member's Image</FormLabel>
                                         <Input variant="ghost" ref={imageRef} type="file" name="actualImage" onChange={(e) => handleChange(index, e)} />
@@ -248,7 +249,7 @@ const C_UpdatedParentDetails = () => {
                                                     objectFit="cover"
                                                     mt={2}
                                                 />
-                                                <Button w="max-content" onClick={() => handleDeleteImage(index)}>
+                                                <Button w="max-content" onClick={() =>{ dispatch(deleteFamilyMemberImage(index));imageRef.current.value = null}}>
                                                     Delete
                                                 </Button>
                                             </Flex>
