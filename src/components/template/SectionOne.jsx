@@ -2,12 +2,32 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import MySlider from './MySlider'
 import '../../App.css'
+import { useSelector } from 'react-redux'
 
 const SectionOne = () => {
 
-  const preference = 'bride'
-  const brideFirstName = 'Bride'
-  const groomFirstName = 'Groom'
+  
+  const liveCardData = useSelector((store)=>store.liveCardData)
+
+  const priorityBetweenBrideAndGroom = liveCardData?.eventDetails?.eventFromDB?.priorityBetweenBrideAndGroom;
+  const brideFirstName = liveCardData?.eventDetails?.brideDetails.firstName || 'Bride';
+  const groomFirstName = liveCardData?.eventDetails?.groomDetails.firstName || 'Groom';
+  const eventDate = liveCardData?.eventDetails?.eventFromDB?.eventDate;
+
+  const formatDateString = (dateString) => {
+    const date = new Date(dateString.replace('|', '').trim());
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
+  const modifiedDate = formatDateString(eventDate) || '27.12.2015';
+
+
+
+
+
   return (
     <Flex position={'relative'} bg={'white'} w={'100%'} h={'85vh'} justifyContent={'center'}  alignItems={['center','center','center','center']} className='custom-cursor'>
         <Flex w={'max-content'}  justifyContent={'center'} alignItems={'center'} p={'20px 0px'} >
@@ -36,10 +56,10 @@ const SectionOne = () => {
                       </Flex>
 
 
-                      <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>{preference ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
+                      <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
                       <Flex direction={'column'} justifyContent={'center'} alignItems={'center'}>
                         <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>Save the Date</Text>
-                        <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>29.7.2024</Text>
+                        <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>{modifiedDate}</Text>
 
                       </Flex>
 

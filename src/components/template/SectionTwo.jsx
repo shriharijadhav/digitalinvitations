@@ -3,10 +3,45 @@ import React from 'react'
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa'
 import BrideOrGroom from './BrideOrGroom'
 import CountdownTimer from './CountdownTimer'
+import { useSelector } from 'react-redux'
  
 const SectionTwo = () => {
+
+
+
+    const liveCardData = useSelector((store)=>store.liveCardData)
+    const priorityBetweenBrideAndGroom = liveCardData?.eventDetails?.eventFromDB?.priorityBetweenBrideAndGroom;
+ 
+    const brideDetails = liveCardData?.eventDetails?.brideDetails
+    const brideFirstName = brideDetails?.firstName
+    const brideLastName = brideDetails?.lastName
+    const brideImageLink = brideDetails?.brideImageLink
+    const brideSocialLinkArray = [
+        brideDetails.instagramLink,brideDetails.facebookLink,brideDetails.youtubeLink
+    ]
+
+    const groomDetails = liveCardData?.eventDetails?.groomDetails;
+    const groomFirstName = groomDetails?.firstName
+    const groomLastName = groomDetails?.lastName
+    const groomImageLink = groomDetails?.groomImageLink
+    const groomSocialLinkArray = [
+        groomDetails.instagramLink,groomDetails.facebookLink,groomDetails.youtubeLink
+    ]
+
+    const eventDate = liveCardData?.eventDetails?.eventFromDB?.eventDate;
+    const formatDateString = (dateString) => {
+        const date = new Date(dateString.replace('|', '').trim());
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+      };
     
-    const dateFromDB = "2024-07-09T18:30:00.000Z"
+    const modifiedDate = formatDateString(eventDate) || '27.12.2015';
+
+    const eventRawDate = liveCardData?.eventDetails?.eventFromDB?.raw_eventDate
+    
+    const dateFromDB = eventRawDate.split(`"`)[1]
     const targetDate = dateFromDB.split('T')[0];
     const targetTime = "12:32 PM";
 
@@ -37,21 +72,21 @@ const SectionTwo = () => {
   return (
     <Flex w={'100%'}  color={'black'} justifyContent={'center'} alignItems={'center'} minH={'80vh'} >
         <Flex w={['90%','90%','80%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} p={'40px 0px'}>
-            <Flex w={'100%'} direction={['column','column','row','row']} justifyContent={'center'} p={'30px 0px'} gap={'30px'} alignItems={'center'}>
+            <Flex w={'100%'} direction={priorityBetweenBrideAndGroom === 'bride'?['column','column','row','row']:['column','column','row-reverse','row-reverse']} justifyContent={'center'} p={'30px 0px'} gap={'30px'} alignItems={'center'}>
                 <Flex  w={'100%'}>
-                    <BrideOrGroom/>
+                    <BrideOrGroom person={'Bride'} fullName={`${brideFirstName} ${brideLastName}`} socialLinkArray={brideSocialLinkArray} imageUrl={brideImageLink}/>
                 </Flex>
                 <Flex   w={'100%'} justifyContent={'center'} alignItems={'center'}>
                     <Flex direction={'column'} w={'90%'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
                     <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>Save the Date</Text>
                         <Flex direction={'column'} alignItems={'center'} justifyContent={'center'}>
-                        <Text  fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']}>Pratham & Swati</Text>
+                        <Text  fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
                         <Text fontSize={['medium','large','larger','larger']}>are getting married on</Text>
-                        <Text fontSize={['medium','large','larger','larger']}>26.09.2024</Text></Flex>
+                        <Text fontSize={['medium','large','larger','larger']}>{modifiedDate}</Text></Flex>
                     </Flex>
                 </Flex>
                 <Flex  w={'100%'}>
-                    <BrideOrGroom/>
+                    <BrideOrGroom person={'Groom'} fullName={`${groomFirstName} ${groomLastName}`} socialLinkArray={groomSocialLinkArray}   imageUrl={groomImageLink}/>
                 </Flex>
             </Flex>
              <Flex w={'100%'}  justifyContent={'center'} alignItems={'center'}>
