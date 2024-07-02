@@ -523,43 +523,43 @@ const initialState = {
         defaultAudioFiles:[
             {
                 name:'Sukh Kalale | Ved',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643325/digitalInvitations/defaultAudioFiles/sukha_kalale_isbt3w.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899198/digitalInvitations/defaultAudioFiles/sukha_kalale_giylvf.webm'
             },
             {
                 name:'Mangalashtake',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643324/digitalInvitations/defaultAudioFiles/Mangalashtake_mrcoz5.mp3'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899193/digitalInvitations/defaultAudioFiles/Mangalashtake_rz37fc.mp3'
             },
             {
                 name:'Dhaga Dhaga | Daagdi Chaawl ',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643323/digitalInvitations/defaultAudioFiles/man_dhaga_dhaga_mrzzxv.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899186/digitalInvitations/defaultAudioFiles/man_dhaga_dhaga_ix44x4.webm'
             },
             {
                 name:'Shubhaarambh | Kai Po Che ',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643321/digitalInvitations/defaultAudioFiles/Shubhaarambh_gampxz.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899193/digitalInvitations/defaultAudioFiles/Shubhaarambh_kfcf6g.webm'
             },
             {
                 name:'Sajiri Gojiri | TTMM',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643320/digitalInvitations/defaultAudioFiles/sajiri_gojiri_g6vq74.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899176/digitalInvitations/defaultAudioFiles/sajiri_gojiri_ialgqw.webm'
             },
             {
                 name:'Navrai (Kajwa 2)',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643319/digitalInvitations/defaultAudioFiles/navrai_kajwa_2_kxrbhp.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899184/digitalInvitations/defaultAudioFiles/navrai_kajwa_2_rnacu6.webm'
             },
             {
                 name:'Sar Sukhachi Shravani',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643318/digitalInvitations/defaultAudioFiles/sar_sukhachi_axpguv.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899178/digitalInvitations/defaultAudioFiles/sar_sukhachi_dgptrd.webm'
             },
             {
                 name:'Tum Se | Shahid & Kriti',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643318/digitalInvitations/defaultAudioFiles/tum_se_zgcmcx.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899175/digitalInvitations/defaultAudioFiles/tum_se_pmgo6t.webm'
             },
             {
                 name:'Navrai Majhi | English Vinglish',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643317/digitalInvitations/defaultAudioFiles/navrai_majhi_ladachi_atgcag.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899180/digitalInvitations/defaultAudioFiles/navrai_majhi_ladachi_tx6xr4.webm'
             },
             {
                 name:'Aaj Sajeya x Madhanya x Mast Magan ',
-                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719643331/digitalInvitations/defaultAudioFiles/Aaj_x_Sajeya_x_Madhanya_X_Mast_Magan_xwkraz.webm'
+                audioUrl:'https://res.cloudinary.com/df4prcuev/video/upload/v1719899198/digitalInvitations/defaultAudioFiles/Aaj_x_Sajeya_x_Madhanya_X_Mast_Magan_jp51jv.webm'
             }
         ],
         rejectDefaultAudioFiles:false,
