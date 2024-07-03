@@ -16,6 +16,7 @@ import C_PhotoGallery from './C_PhotoGallery'
 import C_AudioFile from './C_AudioFile'
 import FamilyMembersForm from './C_UpdatedParentDetails'
 import C_UpdatedParentDetails from './C_UpdatedParentDetails'
+import C_Inviter from './C_Inviter'
 
 const CreateNewCard = () => {
 
@@ -44,6 +45,8 @@ const CreateNewCard = () => {
             return <C_HaldiDetails/>
         }else if(currentPage === 9){
             return <C_PhotoGallery/>
+        }else if(currentPage === 10){
+            return <C_Inviter/>
         }
     }
      

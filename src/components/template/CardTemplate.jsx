@@ -27,16 +27,22 @@ const CardTemplate = () => {
   const liveCardData = useSelector((store)=>store.liveCardData)
 
   const eventDetails = liveCardData?.eventDetails?.eventFromDB;
+  const engagementDetails = eventDetails?.subEvents?.engagementDetails
+  const sangeetDetails = eventDetails?.subEvents?.sangeetDetails
+  const haldiDetails = eventDetails?.subEvents?.haldiDetails
+
   const brideDetails = liveCardData?.eventDetails?.brideDetails;
   const groomDetails = liveCardData?.eventDetails?.groomDetails;
   const familyMembers = liveCardData?.eventDetails?.familyMembers?.familyDetailsArray;
   const photoGallery = liveCardData?.eventDetails?.photoGallery.photoGallery;
-  const engagementDetails = liveCardData?.eventDetails?.subEvents?.engagementDetails;
-  const sangeetDetails = liveCardData?.eventDetails?.subEvents?.sangeetDetails;
-  const haldiDetails = liveCardData?.eventDetails?.subEvents?.haldiDetails;
+  
   const audioUrl = liveCardData?.eventDetails?.audioUrl
 
   console.log(eventDetails)
+
+  const isEmptyObject = (obj) => {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+  };
   
   useEffect(() => {
     if(url){
@@ -55,9 +61,21 @@ const CardTemplate = () => {
           <Flex direction={'column'} w={'100%'} bg={'white'} className='custom-cursor'>
           <SectionOne/>
           <SectionTwo/>
-          <SectionThree/>
-          <SectionFour/>
-          <ParentSection/>
+         {
+          (!isEmptyObject({engagementDetails})||!isEmptyObject({haldiDetails}) || !isEmptyObject({sangeetDetails}) ) &&(
+            <SectionThree/>
+           )
+         }
+          {
+            photoGallery?.length > 0 && (
+              <SectionFour/>
+            )
+          }
+          {
+            eventDetails?.addFamilyDetails && familyMembers?.length > 0 && (
+              <ParentSection/>
+            )
+          }
           {/*<SectionFive/>*/}
           <SectionSix/>
           <SectionSeven/>
