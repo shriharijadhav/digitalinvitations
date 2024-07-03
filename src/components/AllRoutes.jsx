@@ -17,8 +17,7 @@ const AllRoutes = () => {
                 <Route path='/' element={<Homepage />}></Route>
                 <Route path='/dashboard' element={<Dashboard />}></Route>
                 <Route path='/dashboard/edit/:cardId' element={<EditCard />}></Route>
-                 <Route path='/dashboard/createNewCard' element={<CreateNewCard />}></Route>
-                
+                <Route path='/dashboard/createNewCard' element={<CreateNewCard />}></Route>
                 <Route path='*' element={<PageNotFound />}></Route>
           </Route>
           <Route path='/:url' element={<CardTemplate />}></Route>

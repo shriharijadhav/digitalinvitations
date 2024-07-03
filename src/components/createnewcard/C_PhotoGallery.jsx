@@ -216,7 +216,7 @@ import ImageCrop from './ImageCrop'
            </Button>
             <Text pr={'20px'} display={['none','none','flex','flex']}>Step {currentPage}/{totalPages}</Text>
            <Button fontSize={'sm'} isDisabled={currentPage<=totalPages? false:true}   display={'flex'} gap={'5px'} alignItems={'center'} justifyContent={'center'}
-            onClick={()=>{dispatch(makeApiCallToSaveNewCard(formData))}}
+            onClick={linkPage_handleNext}
 
         //    onClick={linkPage_handleNext}
            >
