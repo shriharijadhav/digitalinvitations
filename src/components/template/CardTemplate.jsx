@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeApiCallToFetchCardData } from '../../store/actions'
+import DoorAnimation from './DoorAnimation'
 
 const CardTemplate = () => {
 
@@ -55,7 +56,7 @@ const CardTemplate = () => {
     {
       !liveCardData ?(
         <Flex direction={'column'} w={'100%'} bg={'white'} className='custom-cursor'>
-        <Text color={'black'}>Loading...</Text>
+          <DoorAnimation/>
         </Flex>):(
           <Flex direction={'column'} w={'100%'} bg={'white'} className='custom-cursor'>
           <SectionOne/>
