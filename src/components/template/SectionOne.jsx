@@ -29,7 +29,7 @@ const SectionOne = () => {
 
 
   return (
-    <Flex position={'relative'} bg={'white'} w={'100%'} h={'85vh'} justifyContent={'center'}  alignItems={['center','center','center','center']} className='custom-cursor'>
+    <Flex position={'relative'} bg={'white'} w={'100%'} h={['65vh','65vh','85vh','85vh']} justifyContent={'center'}  alignItems={['center','center','center','center']} className='custom-cursor'>
         <Flex w={'max-content'}  justifyContent={'center'} alignItems={'center'} p={'20px 0px'} >
             <Flex position={'relative'} className='scale-animation'  zIndex={20} w={['220px','250px','280px','300px']} h={['220px','250px','280px','300px']}   >
               <Flex border={'1px solid white'} position={'absolute'} h={['38px','43px','50px','54px']} right={0} top={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'top right'}></Flex>
