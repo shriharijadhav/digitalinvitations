@@ -53,46 +53,46 @@ function CountdownTimer({ targetDateTime }) {
     }
     return (
         <Flex w={'100%'} direction={'column'} justifyContent={'center'} alignItems={'center'} fontSize={['medium','large','larger','x-large']}>
-            <Flex p={'20px'} flexWrap={'wrap'} gap={'15px'}  justifyContent={'center'} height={'auto'} alignItems={'center'} >
+            <Flex color={'purple'} className='playball_Script' p={'20px'} flexWrap={'wrap'} gap={'15px'}  justifyContent={'center'} height={'auto'} alignItems={'center'} >
             <Flex  justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} p={'0px 15px'} pr={'25px'} >
-                <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.days)}</Text>
-                <Text>days</Text>
+                <Text fontSize={['x-large','x-large','x-large','xx-large']}>{formattedValue(timeRemaining.days)}</Text>
+                <Text fontSize={['large','large','large','large']}>Days</Text>
                 <Box  position="absolute"
                 mt="auto"
                 right={0}
                 top="50%"
-                transform={["translateY(-50%) rotate(0deg)","translateY(-50%) rotate(15deg)","translateY(-50%) rotate(15deg)","translateY(-50%) rotate(15deg)"]}
+                transform={"translateY(-50%) rotate(15deg)"}
                 transformOrigin="right bottom"
-                h={["90%","40%","40%","40%"]}
+                h={["50%","40%","40%","40%"]}
                 borderRight="1px solid black"></Box>
             </Flex>
             <Flex justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} p={'0px 15px'} pr={'25px'}>
-                <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.hours)}</Text>
-                <Text>hours</Text>
+                <Text fontSize={['x-large','x-large','x-large','xx-large']}>{formattedValue(timeRemaining.hours)}</Text>
+                <Text  fontSize={['large','large','large','large']} >Hours</Text>
                 <Box  position="absolute"
                 mt="auto"
                 right={0}
                 top="50%"
-                transform={["translateY(-50%) rotate(0deg)","translateY(-50%) rotate(15deg)","translateY(-50%) rotate(15deg)","translateY(-50%) rotate(15deg)"]}
+                transform={"translateY(-50%) rotate(15deg)"}
                 transformOrigin="right bottom"
-                h={["90%","40%","40%","40%"]}
+                h={["50%","40%","40%","40%"]}
                 borderRight="1px solid black"></Box>
             </Flex>
             <Flex justifyContent={'center'} alignItems={'center'} direction={'column'}  position={'relative'} p={'0px 15px'} pr={'25px'}>
-                <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.minutes)}</Text>
-                <Text >mins</Text>
+                <Text fontSize={['x-large','x-large','x-large','xx-large']}>{formattedValue(timeRemaining.minutes)}</Text>
+                <Text fontSize={['large','large','large','large']}  >Mins</Text>
                 <Box  position="absolute"
                 mt="auto"
                 right={0}
                 top="50%"
-                transform={["translateY(-50%) rotate(0deg)","translateY(-50%) rotate(15deg)","translateY(-50%) rotate(15deg)","translateY(-50%) rotate(15deg)"]}
+                transform={"translateY(-50%) rotate(15deg)"}
                 transformOrigin="right bottom"
-                h={["90%","40%","40%","40%"]}
+                h={["50%","40%","40%","40%"]}
                 borderRight="1px solid black"></Box>
             </Flex>
             <Flex justifyContent={'center'} alignItems={'center'}  direction={'column'} position={'relative'} p={'0px 15px'} pr={'25px'}>
-                    <Text fontSize={'xx-large'}>{formattedValue(timeRemaining.seconds)}</Text>
-                    <Text>secs</Text>
+                    <Text fontSize={['x-large','x-large','x-large','xx-large']}>{formattedValue(timeRemaining.seconds)}</Text>
+                    <Text fontSize={['large','large','large','large']}>Secs</Text>
             </Flex>
             </Flex>
             <Flex justifyContent={'center'} textAlign={'center'} alignItems={'center'} w={'100%'} p={'15px 0px'}>
@@ -100,7 +100,7 @@ function CountdownTimer({ targetDateTime }) {
                 timeRemaining.eventEnded ? (
                     <Text>Event has come to an end.</Text>
                 ):(
-                    <Text >Counting down the moments until our hearts entwine in the celebration of love.</Text>
+                    <Text  color={'gray.700'} fontSize={['24px','24px','28px','36px']} fontWeight={'500'} className='playball_Script' >Counting down the moments until our hearts entwine in the celebration of love.</Text>
     
                 )
             }

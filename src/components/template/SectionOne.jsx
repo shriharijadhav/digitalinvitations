@@ -50,16 +50,16 @@ const SectionOne = () => {
                   <Flex w={'95%'} h={'95%'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'} borderRadius={'full'} >
                     <Flex w={'95%'} overflow={'hidden'} justifyContent={'center'} alignItems={'center'} direction={'column'} gap={['10px','10px','20px','20px']} >
                       <Flex className='custom-cursor' direction={'column'} justifyContent={'center'} alignItems={'center'}>
-                        <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>Join Us</Text>
-                        <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>On our Wedding Day!</Text>
+                        <Text fontSize={['medium','medium','larger','x-large']} className='sourceSerif_Script' color={'gray.600'}>Join Us</Text>
+                        <Text fontSize={['medium','medium','larger','larger']} className='sourceSerif_Script' color={'gray.600'}>On our Wedding Day!</Text>
 
                       </Flex>
 
 
-                      <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','large','x-large','x-large']} p={'0px 5px'}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
+                      <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['x-large','x-large','x-large','xx-large']} p={'0px 5px'} className='metal_Script'>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
                       <Flex direction={'column'} justifyContent={'center'} alignItems={'center'}>
-                        <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>Save the Date</Text>
-                        <Text fontSize={['16px','18px','20px','20px']} color={'gray.500'}>{modifiedDate}</Text>
+                        <Text fontSize={['medium','medium','larger','x-large']} className='sourceSerif_Script' color={'gray.600'} >Save the Date</Text>
+                        <Text fontSize={['medium','medium','larger','larger']} className='sourceSerif_Script' color={'gray.600'}>{modifiedDate}</Text>
 
                       </Flex>
 

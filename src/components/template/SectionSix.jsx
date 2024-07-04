@@ -17,18 +17,18 @@ const SectionSix = () => {
   
 
   return (
-    <Flex w={'100%'} color={'black'} justifyContent={'center'} alignItems={'center'} minH={'90vh'}>
+    <Flex w={'100%'} p={'20px 0px'} color={'gray.700'} className='sourceSerif_Script' justifyContent={'center'} alignItems={'center'} minH={'90vh'}>
     <Flex w={'80%'} justifyContent={'center'} alignItems={'center'} direction={'column'} p={'20px 0px'} gap={'10px'}>
 
         <Flex pt={'20px'} justifyContent={'center'} alignItems={'center'} textAlign={'center'} direction={'column'} gap={'10px'}>
-        <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>Event Address</Text> 
+        <Text borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.700'} fontWeight={'500'} fontSize={['x-large','x-large','x-large','xx-large']} className='dancing_Script' p={'0px 5px'} >Event Address</Text> 
             <Flex justifyContent={'center'} alignItems={'baseline'} gap={'5px'} >
             <IoLocationOutline size={'20px'} />
             <Text pt={'20px'} fontWeight={'500'}  fontSize={['large','large','x-large','x-large']}>{eventAddress}</Text>
             </Flex>
         </Flex>
-        <Flex p={'20px 0px'} w={'100%'} gap={'20px'} justifyContent={'center'} alignItems={'center'} direction={'column'}>
-        <Text  fontSize={['medium','medium','large','large']} fontStyle={'italic'}>Get directions by clicking on the map below.</Text>
+        <Flex textAlign={'center'} p={'20px 0px'} w={'100%'} gap={'20px'} justifyContent={'center'} alignItems={'center'} direction={'column'}>
+        <Text  fontSize={['small','small','medium','medium']} fontStyle={'italic'}>Get directions by clicking on the map below.</Text>
         <GoogleMap mapUrl={googleMapsEmbedUrl} />
         </Flex>
     </Flex>

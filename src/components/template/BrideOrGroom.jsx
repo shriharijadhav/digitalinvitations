@@ -8,7 +8,7 @@ const BrideOrGroom = ({fullName,person,socialLinkArray,imageUrl=`https://api.dic
   const [instagramUrl = '', facebookUrl = '', youtubeUrl = ''] = safeArray;
 
   return (
-    <Flex w={'100%'} direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
+    <Flex color={'black'} w={'100%'} direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
     <Flex position={'relative'}  zIndex={20} w={['210px','230px','250px','280px']} h={['210px','230px','250px','280px']}   >
     <Flex border={'1px solid white'} position={'absolute'} borderColor={'red.400'} h={['45px','50px','58px','64px']} right={0} top={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'top right'}></Flex>
     <Flex border={'1px solid white'} position={'absolute'} borderColor={'red.400'} h={['45px','50px','58px','64px']} left={0} bottom={0}  zIndex={10}  transform="rotate(45deg)"   transformOrigin={'bottom left'}></Flex>
@@ -37,8 +37,8 @@ const BrideOrGroom = ({fullName,person,socialLinkArray,imageUrl=`https://api.dic
     </Flex>
     </Flex>
     <Flex p={'5px 0px'} direction={'column'} justifyContent={'center'} alignItems={'center'}>
-    <Text fontSize={['large','large','x-large','xx-large']} fontWeight={'500'}>{fullName}</Text>
-    <Text  fontSize={['large','large','large','large']}>The {person}</Text>
+    <Text fontSize={['x-large','x-large','xx-large','xx-large']} fontWeight={'500'} className='metal_Script' >{fullName}</Text>
+    <Text  fontSize={['large','large','large','large']} className='metal_Script' >The {person}</Text>
     <Flex gap={'10px'} p={'5px 0px'} color={'black'}>
      
           <IconButton

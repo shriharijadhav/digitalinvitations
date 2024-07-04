@@ -105,15 +105,15 @@ const SectionTwo = () => {
         <Flex w={['90%','90%','80%','80%']} direction={'column'} justifyContent={'center'} alignItems={'center'} p={'40px 0px'}>
             <Flex w={'100%'} direction={priorityBetweenBrideAndGroom === 'bride'?['column','column','row','row']:['column-reverse','column-reverse','row-reverse','row-reverse']} justifyContent={'center'} p={'30px 0px'} gap={'30px'} alignItems={'center'}>
                 <Flex  w={'100%'}>
-                    <BrideOrGroom person={'Bride'} fullName={`${brideFirstName} ${brideLastName}`} socialLinkArray={brideSocialLinkArray} imageUrl={brideImageLink}/>
+                    <BrideOrGroom  person={'Bride'} fullName={`${brideFirstName} ${brideLastName}`} socialLinkArray={brideSocialLinkArray} imageUrl={brideImageLink}/>
                 </Flex>
-                <Flex   w={'100%'} justifyContent={'center'} alignItems={'center'}>
+                <Flex   w={'100%'} justifyContent={'center'} alignItems={'center'} textAlign={'center'}>
                     <Flex direction={'column'} w={'90%'} justifyContent={'center'} alignItems={'center'} gap={'20px'}>
-                    <Text  color={'gray.600'} borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.600'} fontWeight={'500'} fontSize={['large','x-large','x-large','x-large']} p={'0px 5px'}>Save the Date</Text>
+                    <Text  borderTop={'2px solid gray'} borderBottom={'2px solid gray'} borderColor={'gray.700'} fontWeight={'500'} fontSize={['larger','x-large','x-large','xx-large']} className='dancing_Script' p={'0px 5px'} >Save the Date</Text>
                         <Flex direction={'column'} alignItems={'center'} justifyContent={'center'}>
-                        <Text  fontWeight={'500'} fontSize={['large','x-large','large','x-large']}>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
-                        <Text fontSize={['medium','large','larger','larger']}>are getting married on</Text>
-                        <Text fontSize={['medium','large','larger','larger']}>{modifiedDate}</Text></Flex>
+                        <Text  fontWeight={'500'} fontSize={['x-large','x-large','x-large','x-large']} className='metal_Script'>{priorityBetweenBrideAndGroom ==='bride'?`${brideFirstName} & ${groomFirstName}`:`${groomFirstName} & ${brideFirstName}`}</Text>
+                        <Text fontSize={['large','larger','larger','x-large']} className='metal_Script'>are getting married on</Text>
+                        <Text fontSize={['large','larger','larger','x-large']} className='metal_Script'>{modifiedDate}</Text></Flex>
                     </Flex>
                 </Flex>
                 <Flex  w={'100%'}>

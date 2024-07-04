@@ -146,3 +146,57 @@ body {
     height: 420px;
   }
 }
+
+
+@font-face {
+  font-family: 'Dancing Script';
+  src: url('../public/DancingScript-VariableFont_wght.ttf');
+}
+
+.dancing_Script{
+  font-family: 'Dancing Script';
+}
+
+
+@font-face {
+  font-family: 'Playball';
+  src: url('../public/Playball-Regular.ttf');
+}
+
+.playball_Script{
+  font-family: 'Playball';
+}
+
+@font-face {
+  font-family: 'Metal';
+  src: url('../public/Metal-Regular.ttf');
+}
+
+.metal_Script{
+  font-family: 'Metal';
+}
+
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('../public/SourceSerif4-VariableFont_opsz\,wght.ttf');
+}
+
+.sourceSerif_Script{
+  font-family: 'Source Serif 4';
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse-animation {
+  animation: pulse 1.5s infinite;
+}

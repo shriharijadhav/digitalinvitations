@@ -15,7 +15,7 @@ const ParentSection = () => {
     const priorityBetweenFamily = useSelector((store)=>store?.liveCardData?.eventDetails?.eventFromDB?.priorityBetweenFamily)
     
   return (
-    <Flex w={'100%'}  color={'black'} justifyContent={'center'} alignItems={'center'} bg={'#faf5fa'}>
+    <Flex w={'100%'} className='sourceSerif_Script'  color={'gray.700'} justifyContent={'center'} alignItems={'center'} bg={'#faf5fa'}>
         <Flex w={['90%','90%','70%','70%']} direction={'column'} justifyContent={'center'} alignItems={'center'} p={'40px 0px'}>
         
             <Flex p={'20px 0px'} textAlign={'center'} justifyContent={'center'} alignItems={'center'} direction={'column'} gap={'10px'}>

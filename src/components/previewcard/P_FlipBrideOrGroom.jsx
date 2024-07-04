@@ -138,7 +138,7 @@ const modifiedDate = formatDate(eventDate)
             gap={'10px'}
             p={'10px'}
           >
-             <Text fontSize={['sm','sm','md','lg']}>Join us for a day of love, laughter, and new beginnings.</Text>
+            <Text fontSize={['sm','sm','md','lg']}>Join us for a day of love, laughter, and new beginnings.</Text>
             <Text fontSize={['sm','sm','md','lg']} pt={['0px','0px','5px','5px']}>{modifiedDate} | {eventTime}</Text>
             <Text fontSize={['sm','sm','md','lg']} pb={['0px','0px','5px','5px']}></Text>
             <Text fontSize={['sm','sm','md','lg']}>Please save the Date!</Text>

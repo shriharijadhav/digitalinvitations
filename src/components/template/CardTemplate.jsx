@@ -36,10 +36,9 @@ const CardTemplate = () => {
   const familyMembers = liveCardData?.eventDetails?.familyMembers?.familyDetailsArray;
   const photoGallery = liveCardData?.eventDetails?.photoGallery.photoGallery;
   
-  const audioUrl = liveCardData?.eventDetails?.audioUrl
 
-  console.log(eventDetails)
 
+ 
   const isEmptyObject = (obj) => {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   };
