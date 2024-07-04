@@ -62,7 +62,7 @@ const AudioToggleMute = () => {
           onClick={toggleAudio}
           title={isAudioPlaying ? 'Mute' : 'Unmute'}
         >
-          <Icon className={isAudioPlaying ? 'pulse-animation' : ''} as={isAudioPlaying ? GiMusicalNotes : MdMusicOff} />
+          <Icon className={isAudioPlaying ? 'pulse-animation' : 'shake-animation'} as={isAudioPlaying ? GiMusicalNotes : MdMusicOff} />
         </Button>
       </Box>
     </Flex>
