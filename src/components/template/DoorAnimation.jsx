@@ -10,9 +10,9 @@ const DoorAnimation = () => {
       transition={{ duration: 2 }} // Animation duration
       style={{ originX: 0.5, originY: 0.5 }} // Set origin at center
     >
-      <Flex w="100%" h="70%">
+      <Flex w="100%" h="100%" direction={'column'} justifyContent={'center'} alignItems={'center'} gap={'50px'}>
         {/* Content inside the reveal animation */}
-        <Flex className='scale-animation' rounded={'full'} outline={'7px solid white'} w="400px" h="400px" bg="purple.300" direction={'column'} gap={'20px'} justifyContent={'center'} alignItems={'center'} textAlign={'center'} p={'40px 40px'}>
+        <Flex className='scale-animation' rounded={'full'} outline={'5px solid white'} w="400px" h="400px" bg="purple.300" direction={'column'} gap={'20px'} justifyContent={'center'} alignItems={'center'} textAlign={'center'} p={'40px 40px'}>
           <Flex justifyContent={'center'} alignItems={'center'} direction={'column'} gap={'20px'} pt={'10px'}>
             <Text className='metal_Script' fontSize={'xx-large'}>Join us in celebrating our special day! </Text>
             <Text className='metal_Script' fontSize={'x-large'}>Your presence would make our day truly memorable.</Text>
@@ -20,6 +20,11 @@ const DoorAnimation = () => {
           <Flex justifyContent={'end'} pt={'10px'}>
                 <Text className='metal_Script' fontSize={'large'}>-Digital Invitations</Text>
           </Flex>
+        </Flex>
+
+        <Flex direction={'column'} color={'purple'} justifyContent={'center'} alignItems={'center'} gap={'5px'}>
+        <Text>Please refresh in case you are stuck on this screen.</Text>
+        <Text>Please make sure card link is correct.</Text>
         </Flex>
       </Flex>
     </motion.div>
