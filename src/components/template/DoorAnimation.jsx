@@ -9,7 +9,7 @@ const DoorAnimation = () => {
       <motion.div
         initial={{ scale: 0 }} // Initially scaled to 0 (hidden)
         animate={{ scale: 1 }} // Scales up to 1 (fully revealed)
-        transition={{ duration: animationDuration }} // Animation duration
+        transition={{ duration: 3 }} // Animation duration
         style={{ originX: 0.5, originY: 0.5 }} // Set origin at center
       >
         <Flex
@@ -56,8 +56,8 @@ const DoorAnimation = () => {
       <motion.div
         initial={{ opacity: 0 }} // Initially hidden
         animate={{ opacity: 1 }} // Fade in after animation ends
-        transition={{ delay: animationDuration, duration: 0.5 }} // Delay before fading in
-        style={{ position: 'absolute', bottom: '20px' }} // Adjust position as needed
+        transition={{ delay: 1.5, duration: 0.5 }} // Delay before fading in
+        style={{ position: 'absolute', bottom: '70px' }} // Adjust position as needed
       >
         <Flex direction="column" color="purple" justifyContent="center" alignItems="center" gap="5px">
           <Text>Please refresh in case you are stuck on this screen.</Text>
