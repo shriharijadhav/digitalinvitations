@@ -25,34 +25,6 @@ import ImageCrop from './ImageCrop'
     const photoGallery = useSelector((store) => store.tempNewCardData.photoGallery)
 
 
-    // data to send to the server
-    const data = useSelector(store=>store.tempNewCardData)
-     const formData = new FormData()
-
-    if(data.brideDetails.brideActualImage){
-        formData.append('brideActualImage', data.brideDetails.brideActualImage);
-    }
-    if(data.groomDetails.groomActualImage){
-        formData.append('groomActualImage', data.groomDetails.groomActualImage);
-    }
-    
-    if(data.userAudioFile){
-        formData.append('userAudioFile',data.userAudioFile)
-    }
-
-    if(data.eventDetails.familyDetailsArray.length >0){
-      data.eventDetails.familyDetailsArray.forEach((member, index) => {
-        formData.append(`familyMember_[${index}]`, member.actualImage);
-    });
-    }
-     
-    formData.append('allData',JSON.stringify(data));
-    //  data to send to the server ends
-
-    photoGallery.forEach((file, index) => {
-        formData.append(`photoGallery_${index}`, file);
-    });
- 
     
 
 

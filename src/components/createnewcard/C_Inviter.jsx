@@ -3,7 +3,7 @@ import { Box, Button, Center, Checkbox, Flex, Grid, GridItem, Input, ListItem, R
 import React, { useEffect, useRef, useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleChangeForInviterDetails, makeEngagementAddressSameAsWedding, previousPage, proceedToNextPage, saveEngagementAddress, saveEngagementDate, saveEngagementTime, setPreviewCardData, toggleAddEngagementDetails, toggleAddInviterDetails } from '../../store/actions';
+import { handleChangeForInviterDetails, makeApiCallToSaveNewCard, makeEngagementAddressSameAsWedding, previousPage, proceedToNextPage, saveEngagementAddress, saveEngagementDate, saveEngagementTime, setPreviewCardData, toggleAddEngagementDetails, toggleAddInviterDetails } from '../../store/actions';
 import {
     Modal,
     ModalOverlay,
@@ -34,6 +34,42 @@ const C_Inviter = () => {
 
     const toast = useToast();
 
+
+    // form data starts
+    // data to send to the server
+    const data = useSelector(store=>store.tempNewCardData)
+    const photoGallery = useSelector((store) => store.tempNewCardData.photoGallery)
+
+     const formData = new FormData()
+
+    if(data.brideDetails.brideActualImage){
+        formData.append('brideActualImage', data.brideDetails.brideActualImage);
+    }
+    if(data.groomDetails.groomActualImage){
+        formData.append('groomActualImage', data.groomDetails.groomActualImage);
+    }
+    
+    if(data.userAudioFile){
+        formData.append('userAudioFile',data.userAudioFile)
+    }
+
+    if(data.eventDetails.familyDetailsArray.length >0){
+      data.eventDetails.familyDetailsArray.forEach((member, index) => {
+        formData.append(`familyMember_[${index}]`, member.actualImage);
+    });
+    }
+     
+    formData.append('allData',JSON.stringify(data));
+    //  data to send to the server ends
+
+    photoGallery.forEach((file, index) => {
+        formData.append(`photoGallery_${index}`, file);
+    });
+ 
+    
+
+    // form data ends
+
     const customToast = (message) => {
         toast({
             title: `${message}`,
@@ -62,8 +98,7 @@ const C_Inviter = () => {
     const handleSubmit = async () => {
         setIsSubmitting(true);
 
-        // Simulate form submission
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Replace with actual submission logic
+        dispatch(makeApiCallToSaveNewCard(formData))
 
         setIsSubmitting(false);
         onClose();

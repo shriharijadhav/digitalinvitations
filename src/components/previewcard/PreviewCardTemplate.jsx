@@ -36,7 +36,7 @@ const PreviewCardTemplate = ({setShowCardPreview}) => {
           <P_SectionOne/>
           <P_SectionTwo/>
           
-            <P_SectionThree/>
+            {/*<P_SectionThree/>*/}
             
           {
             photoGallery?.length > 0 && (
@@ -51,7 +51,8 @@ const PreviewCardTemplate = ({setShowCardPreview}) => {
           
           <P_SectionSix/>
          {/* <SectionSeven/>*/}
-         </Flex>
+          <P_ScrollToTopButton/>
+        </Flex>
         )
     }
     

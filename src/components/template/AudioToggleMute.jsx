@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box, Button, Flex, Icon } from '@chakra-ui/react';
 import { GiMusicalNotes } from "react-icons/gi";
 import { MdMusicOff } from "react-icons/md";
+import { useSelector } from 'react-redux';
 
 const AudioToggleMute = () => {
-  const audioUrl = 'https://res.cloudinary.com/df4prcuev/video/upload/v1719899292/digitalInvitations/allAudioFiles/ukglpkpdvrx7n5bnxjcn.webm';
+   
+  const audioUrl = useSelector((store) => store?.liveCardData?.eventDetails?.audioUrl?.audioFile_secureUrl) || 'https://res.cloudinary.com/df4prcuev/video/upload/v1719899193/digitalInvitations/defaultAudioFiles/Mangalashtake_rz37fc.mp3';
   const audioRef = useRef(null);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
