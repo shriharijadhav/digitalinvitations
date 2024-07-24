@@ -8,6 +8,9 @@ import EditCard from './editcard/EditCard'
 import PageNotFound from './pagenotfound/PageNotFound'
 import CreateNewCard from './createnewcard/CreateNewCard'
  import CardTemplate from './template/CardTemplate'
+import Login from './login/Login';
+import AccountVerification from './login/AccountVerification'
+import AccountVerificationSuccessful from './login/AccountVerificationSuccessful'
 
 const AllRoutes = () => {
   return (
@@ -19,6 +22,9 @@ const AllRoutes = () => {
                 <Route path='/dashboard/edit/:cardId' element={<EditCard />}></Route>
                 <Route path='/dashboard/createNewCard' element={<CreateNewCard />}></Route>
                 <Route path='*' element={<PageNotFound />}></Route>
+                <Route path='/login' element={<Login/>}/>
+                <Route path='/accountVerification/:token' element={<AccountVerification/>}/>
+                <Route path='/accountVerificationSuccessful' element={<AccountVerificationSuccessful/>}/>
           </Route>
           <Route path='/:url' element={<CardTemplate />}></Route>
 

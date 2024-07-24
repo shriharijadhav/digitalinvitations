@@ -1,4 +1,4 @@
-import { C_ADD_NEW_FAMILY_MEMBER, C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_FAMILY, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_DELETE_FAMILY_MEMBER_IMAGE, C_DELETE_MEMBER_BY_INDEX, C_DELETE_MEMBER_DETAILS_BY_INDEX, C_DELETE_PHOTO_FROM_GALLERY, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_HANDLE_CHANGE_INVITER_DETAILS, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_FAMILY_ARRAY, C_SAVE_FAMILY_MEMBER_IMAGE, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_PHOTO_GALLERY, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_FAMILY_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_INVITER_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, HANDLE_CHANGE_FOR_MEMBER_DETAILS, PREVIOUS_PAGE, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, SAVE_LIVE_CARD_DETAILS, SAVE_USER_AUDIO_FILE, SET_CARD_PREVIEW_DATA, TOGGLE_REJECT_DEFAULT_AUDIO_FILES, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR, UPDATE_SELECTED_AUDIO_DETAILS, UPDATE_SELECTED_AUDIO_INDEX } from "./actionTypes";
+import { ACCOUNT_VERIFICATION_SUCCESSFUL, C_ADD_NEW_FAMILY_MEMBER, C_CHANGE_PRIORITY_BETWEEN_BRIDE_AND_GROOM, C_CHANGE_PRIORITY_BETWEEN_FAMILY, C_CHANGE_PRIORITY_BETWEEN_PARENTS, C_CLEAR_PARENT_DETAILS, C_DELETE_ACTUAL_IMAGE, C_DELETE_ACTUAL_IMAGE_BRIDE_PARENT, C_DELETE_ACTUAL_IMAGE_GROOM_PARENT, C_DELETE_FAMILY_MEMBER_IMAGE, C_DELETE_MEMBER_BY_INDEX, C_DELETE_MEMBER_DETAILS_BY_INDEX, C_DELETE_PHOTO_FROM_GALLERY, C_ENGAGEMENT_ADDRESS_SAME_AS_WEDDING, C_HALDI_ADDRESS_SAME_AS_WEDDING, C_HANDLE_CHANGE_INVITER_DETAILS, C_IMAGE_UPLOAD_DONE_FOR_BRIDE, C_SANGEET_ADDRESS_SAME_AS_WEDDING, C_SAVE_ACTUAL_IMAGE, C_SAVE_BRIDE_AND_GROOM_BASIC_DETAILS, C_SAVE_BRIDE_PARENT_ACTUAL_IMAGE, C_SAVE_BRIDE_PARENT_DETAILS, C_SAVE_ENGAGEMENT_ADDRESS, C_SAVE_ENGAGEMENT_DATE, C_SAVE_ENGAGEMENT_TIME, C_SAVE_EVENT_ADDRESS, C_SAVE_EVENT_ADDRESS_GOOGLE_MAP_LINK, C_SAVE_EVENT_DATE, C_SAVE_EVENT_FIELD_DETAILS, C_SAVE_EVENT_NAME, C_SAVE_EVENT_TIME, C_SAVE_FAMILY_ARRAY, C_SAVE_FAMILY_MEMBER_IMAGE, C_SAVE_GROOM_PARENT_ACTUAL_IMAGE, C_SAVE_GROOM_PARENT_DETAILS, C_SAVE_HALDI_ADDRESS, C_SAVE_HALDI_DATE, C_SAVE_HALDI_TIME, C_SAVE_MEDIA_DETAILS, C_SAVE_PHOTO_GALLERY, C_SAVE_SANGEET_ADDRESS, C_SAVE_SANGEET_DATE, C_SAVE_SANGEET_TIME, C_TOGGLE_ADD_ENGAGEMENT_DETAILS, C_TOGGLE_ADD_FAMILY_DETAILS, C_TOGGLE_ADD_HALDI_DETAILS, C_TOGGLE_ADD_INVITER_DETAILS, C_TOGGLE_ADD_PARENT_DETAILS, C_TOGGLE_ADD_SANGEET_DETAILS, C_UPDATE_GALLERY_DETAILS, DISABLE_OTP_REGENERATION, ENABLE_OTP_REGENERATION, HANDLE_CHANGE_FOR_MEMBER_DETAILS, INVALID_EMAIL, INVALID_FIRST_NAME, INVALID_LAST_NAME, INVALID_PASSWORD, LOGIN_FAILED, MATCH_PASSWORDS, OTP_PATTERN_MATCH, OTP_REGENERATION_SUCCESSFUL, PREVIOUS_PAGE, PROCEED_TO_ACCOUNT_VERIFICATION, PROCEED_TO_NEXT_PAGE, RESET_CURRENT_PAGE_TO_ONE, RESET_TEMP_NEW_CARD_DATA, SAVE_LIVE_CARD_DETAILS, SAVE_USER_AUDIO_FILE, SELECT_LOGIN_FORM, SELECT_SIGNUP_FORM, SET_CARD_PREVIEW_DATA, SIGNUP_SUCCESSFUL, TOGGLE_REJECT_DEFAULT_AUDIO_FILES, TOGGLE_SHOW_PASSWORD, UPDATE_EVENT_FIELD_DETAILS, UPDATE_FORM_ERROR, UPDATE_LOGIN_FORM, UPDATE_SELECTED_AUDIO_DETAILS, UPDATE_SELECTED_AUDIO_INDEX, USER_ALREADY_REGISTERED, WRONG_OTP_ENTERED } from "./actionTypes";
 import { resetData_TempNewCardData } from "./reset_tempNewCardData";
 
 const initialState = {
@@ -576,7 +576,42 @@ const initialState = {
     },
     formErrorObj:{
         emptyCardLink:'',
-    }
+    },
+
+
+    // login data
+    loginFormData :{
+        firstName:'',
+        lastName:'',
+        email:'',
+        password:'',
+        confirmPassword:'',
+        isPoorPassword:false,
+        isPasswordNotMatching:false,
+        isSignUpForm:true,
+        showPassword:false,
+        isInvalidEmail:false,
+        isInvalidFirstName:false,
+        isInvalidLastName:false,
+        isPasswordNotMatching:false,
+
+        formErrors:[]
+    },
+    isUserAlreadyRegistered:false,
+    isSignUpSuccessful:false,
+    token:null,
+    isProceedToAccountVerification:false,
+    isCountDownEnded:false,
+    enableOTPRegenerate:false,
+    isOtpRegenerated:false,
+    isRegenerateOtpButtonDisabled:true,
+    isEnteredOtpValid:false,
+    enteredOtp:0,
+    isAccountVerificationSuccessful:false,
+    isWrongOtpEnteredByUser:false, 
+    isLoginSuccessful:false,
+    isLoginFailed:false,
+
 
 }
 
@@ -1245,6 +1280,108 @@ export const reducer = (state=initialState,action)=>{
         // cases for preview card ends
 
 
+    // login starts
+
+    case UPDATE_LOGIN_FORM:
+            return {
+                ...state,loginFormData:{...state.loginFormData,[action.fieldName]:action.payload}
+            }
+            break;
+        case SELECT_LOGIN_FORM:
+            return{
+                ...state,loginFormData:{...state.loginFormData,isSignUpForm:false}
+            }
+        break;
+        case SELECT_SIGNUP_FORM:
+            return{
+                ...state,loginFormData:{...state.loginFormData,isSignUpForm:true}
+            }
+        break;
+        case TOGGLE_SHOW_PASSWORD:
+            return{
+                ...state,loginFormData:{...state.loginFormData,showPassword:!state.loginFormData.showPassword}
+            }
+        break;
+        case INVALID_EMAIL:
+            return{
+                ...state,loginFormData:{...state.loginFormData,isInvalidEmail:action.payload}
+            }
+        break;
+        case INVALID_FIRST_NAME:
+            return{
+                ...state,loginFormData:{...state.loginFormData,isInvalidFirstName:action.payload}
+            }
+        break;
+        case INVALID_LAST_NAME:
+            return{
+                ...state,loginFormData:{...state.loginFormData,isInvalidLastName:action.payload}
+            }
+        break;
+        case INVALID_PASSWORD:
+            return{
+                ...state,loginFormData:{...state.loginFormData,isPoorPassword:action.payload}
+            }
+        break;
+        case MATCH_PASSWORDS:
+            return{
+                ...state,loginFormData:{...state.loginFormData,isPasswordNotMatching:action.payload}
+            }
+        break;
+        case USER_ALREADY_REGISTERED:
+            return{
+                ...state,isUserAlreadyRegistered:action.payload,
+            }
+        break;
+        case SIGNUP_SUCCESSFUL:
+
+            return{
+                ...state,isSignUpSuccessful:action.payload
+            }
+        break;
+        case PROCEED_TO_ACCOUNT_VERIFICATION:
+            return{
+                ...state,isProceedToAccountVerification:true,token:action.payload,enableOTPRegenerate:true
+            }
+        break;
+        case ENABLE_OTP_REGENERATION:
+
+            return{
+                ...state,isCountDownEnded:true,isRegenerateOtpButtonDisabled:false
+            }
+        break;
+        case DISABLE_OTP_REGENERATION:
+            return{
+                ...state,isRegenerateOtpButtonDisabled:true
+            }
+        break;
+        case OTP_REGENERATION_SUCCESSFUL:
+            return{
+                ...state,isOtpRegenerated:true,token:action.payload,isCountDownEnded:false,isRegenerateOtpButtonDisabled:false
+            }
+        break;
+        case OTP_PATTERN_MATCH:
+            return{
+                ...state,isEnteredOtpValid:action.payload,enteredOtp:action.enteredOtp,isWrongOtpEnteredByUser:false
+            }
+        break;
+        case ACCOUNT_VERIFICATION_SUCCESSFUL:
+            return{
+                ...state,isAccountVerificationSuccessful:action.payload,
+            }
+        break;
+        case WRONG_OTP_ENTERED:
+            return{
+                ...state,isWrongOtpEnteredByUser:action.payload,
+            }
+        break;
+        case LOGIN_FAILED:
+            return{
+                ...state,isLoginFailed:action.payload,
+            }
+        break;
+ 
+
+    // login ends
 
  
         default:
