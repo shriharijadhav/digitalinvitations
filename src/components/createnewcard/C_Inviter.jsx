@@ -98,7 +98,7 @@ const C_Inviter = () => {
     const handleSubmit = async () => {
         setIsSubmitting(true);
 
-        dispatch(makeApiCallToSaveNewCard(formData))
+         dispatch(makeApiCallToSaveNewCard(formData))
 
         setIsSubmitting(false);
         onClose();
