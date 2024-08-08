@@ -401,7 +401,7 @@ export const makeApiCallToSaveNewCard = (data) =>{
     console.log(data)
     return async(dispatch) =>{
         try {
-             const response  = await apiConnector('post',"https://digitalinvitation-serverless-backend.vercel.app/api/createNewCard",data,{
+             const response  = await apiConnector('post',saveNewCard.API_ROUTE,data,{
                 'Content-Type': 'multipart/form-data',
               },null)
             console.log(response)
