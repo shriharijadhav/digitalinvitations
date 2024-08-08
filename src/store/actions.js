@@ -420,7 +420,7 @@ export const saveLiveCardDetails = (data) =>{
 export const makeApiCallToFetchCardData = (url) =>{
     return async(dispatch)=>{
         try {
-           const response = await apiConnector('post',fetchCardData.API_ROUTE,{cardUrl:url},null,null) 
+           const response = await apiConnector('post',"https://digitalinvitation-serverless-backend.vercel.app/api/fetchCardDetails",{cardUrl:url},null,null) 
         //    console.log(response)
             dispatch(saveLiveCardDetails(response.data.data))
         } catch (error) {
