@@ -18,8 +18,8 @@ import { Link } from 'react-router-dom';
 const DefaultNavbar = () => {
  
   return (
-    <Flex w={'100%'} bg={'yellow.400'} justifyContent={'center'} p={'5px 0px'} alignItems={'center'}> 
-        <Flex w={['95%','90%','90%','85%']} bg={'red.300'} p={['1rem 0rem','1rem 0rem','1rem 0rem','1rem 0rem']} justifyContent={'space-between'} alignItems={'center'}>
+    <Flex w={'100%'} bg={'gray.400'} justifyContent={'center'} p={'5px 0px'} alignItems={'center'}> 
+        <Flex w={['95%','90%','90%','85%']}  p={['1rem 0rem','1rem 0rem','1rem 0rem','1rem 0rem']} justifyContent={'space-between'} alignItems={'center'}>
             <Flex p={'0px 20px'}>
                 <Text cursor={'pointer'}>Digital Invitations</Text>
             </Flex>
