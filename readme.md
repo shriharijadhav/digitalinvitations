@@ -1,9 +1,17 @@
-1. create new card--> temp form data --> Save & continue --> server
-2. Update existing card --> fill form data on edit --> store temp modified data --> save & continue --> server
+# Digital Invitations
 
-3. Once saved successfully on server --> re-fetch updated data from server --> update store 
+A modern web application for creating and sending personalized digital invitations with ease.
 
+## 🚀 Features
+- 🎨 **Customizable Designs** – Choose from a variety of templates or create your own.
+- 📩 **Instant Sharing** – Share invitations via email, WhatsApp, or social media.
+- 📅 **RSVP Tracking** – Get real-time responses from invitees.
+- 🔔 **Automated Reminders** – Send reminders to guests before the event.
+- 🛠 **User-Friendly Interface** – Drag-and-drop builder for easy customization.
+- 📍 **Live Event Details & Countdown** – Display event details with real-time countdown.
+- 📌 **Live Location Tracking** – Ensure guests can find the event easily.
 
-https://digitalinvitation-serverless-backend.vercel.app/api/fetchCardDetails
-
-TODO: backend base url changed to https://digitalinvitation-serverless-backend.vercel/api
+## 🛠 Tech Stack
+- **Frontend:** React.js, Chakra UI, Redux
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
